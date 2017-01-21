@@ -9,3 +9,5 @@ Team Memebers:
   5. Prem
   6. Harish
   
+Terminology Used:
+SF => support file
