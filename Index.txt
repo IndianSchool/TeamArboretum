@@ -1,0 +1,7 @@
+ARBORATUM => Weekend Batch => Hadoop
+
+INDEX:
+------
+
+14-JAN-2017 => Recap => 4Vs; DataScientist Vs DataEngg; Cloud Vs Grid Vs Virtualization
+21-JAN-2017 => Architecture => HDFS; Deamons; Fault Tolarence; High Availability; Replication
