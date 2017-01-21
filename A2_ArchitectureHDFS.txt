@@ -1,0 +1,217 @@
+Agenda:
+------
+
+Architecture:
+
+	1. HDFS
+	2. YARN
+	
+Revision:
+--------
+
+What is Hadoop? [Both]
+	> Storage
+	> Processing
+
+Name the layer which manages Storage in Hadoop?
+	> HDFS => Hadoop Distributed File System
+	
+Name the layer which manages Processing in Hadoop? [default]
+	> YARN => Yet Another Resource Negotiator 
+	
+Name the layer which manages Processing in Hadoop1?
+	> MR => MapReduce
+
+What is a Cluster?
+	> a group of machines/computers/nodes working together in harmony
+	
+Distributed Storage => HDFS
+Distributed Processing => YARN
+Distributed => getting/managing the power of cluster
+
+How many computers are tested in Hadoop? What is the size of the cluster?
+	> 10,000 => Hadoop2
+	> 4,000 => Hadoop1
+	
+	> In reality, Organization have very little sizes
+		> FaceBook/Visa => 1000 computers => Ultimate
+		> 100 => Great Cluster
+		> 10 - 20 => our normal organizations
+
+		> Typical => Dual Socket motherboards; 24 cores; 64 GB RAM; Xeon; 16 TB HDD; Dual Power
+			> Better Hardware > NOT Specialized Hardware
+
+What is the relationship between master and slave?
+	> master commands the slave
+	> slave listens to master
+	
+In HDFS: master(NameNode) + slave(DataNode)
+	What actually are these NameNode and DataNode?
+		These are nothing but LONGRUNNING PROCESSES on a particular machine.
+
+In YARN: master(ResourceManager) + slave(NodeManager)
+	What actually are these ResourceManager and NodeManager?
+		These are nothing but LONGRUNNING PROCESSES on a particular machine.
+
+What is the name of the tiniest quantifiable unit for storage in Hadoop?[HDFS]
+		> BLOCK
+	
+	When ever you put a file in HDFS? The file becomes into BLOCKS.
+		> What is the BLOCK size?
+			> 128 MB => Hadoop2 [default]
+			> 64 MB => Hadoop1 [default]
+			> purely 100% configurable; we can change the block size as we wish;
+			
+	Assume you have a file of 200MB; How many blocks will be there?
+		> 2 Blocks (128 + 72) => Hadoop2
+		> 4 Blocks (64 + 64 + 64 + 8) => Hadoop1
+
+File => turned into BLOCKS
+
+	Which blocks will make a file? a meta-data info? YES
+		MetaData => has relationship between blocks and files
+			> without this metadata => virtually useless
+			
+		Ex: NameNode is very imporant; it holds the metadata;
+				if NameNode is down => metadata is down => cluster is down (virtually)
+
+				like a father has 10 sons, hale and health, dont listen to father;
+					father feels he has no sons.
+---------------------------------------------------------------------
+Blocks => DataNode => NameNode (1 machine)
+---------------------------------------------------------------------
+
+UseCase => You can put a 2 TB file in 2 machines (each has 1 TB capacity)
+	> scalilng 
+	> no worries of manual intervention
+	> file size can be beyond a disk
+	
+	There is cluster of size 100 nodes?
+		DataNodes: 99 (mostly used design)
+		NameNode: 1
+		-----------------
+		DataNodes: 100 (cost cutting design)
+		NameNode: 1
+
+		ex: ask manager also to sit among cubicles not in seperate cabin
+			MORE RAM needed in NameNode => stores meta-data
+			MORE HDD needed in DataNode => stores actuall data
+
+READ OPERATION: client [application]=> contacts NameNode => gives the block locations
+							=> client reads the data from the DataNodes
+
+HDFS Fault-Tolerance: The ability to allow failure in a system.
+	system => a storage system
+	failure => unable to read a file
+	
+	ability => able to read a file irrespective of failure
+	
+	Fault-Tolerance is acheived using a concept called REPLICATION.
+	Default Replication Factor: 3 (at any given time 3 copies of a block will be available )
+
+	A machine can become unavailable:
+		1. Power Down
+		2. Network Down
+		3. Disk Failure/ Hardware down
+		4. Software Crash
+		
+	NameNode makes sure that the blocks are mirrored/copied on multiple systems (not the same)
+		=> NameNode uses an algorithm => Rack-Awareness
+		=> Cluster => Rack => Nodes
+			=> Rack-Awareness ; calculate the network distance and spread blocks accordingly
+
+HDFS High Availability => Came in Hadoop2
+	System => Storage
+	Availability => No Down Time
+
+	Hadoop1 => NameNode => SPOF ; Single Point Of Failure
+	
+	Ex: You visit a restaurant; a customized order; waiter; small notepad
+			scenario => waiter fell down => unconsious => sent to hospital in ambulance
+			
+			2 options: 2nd option usually happens
+				1. management will tell the customer to leave 
+				2. another waiter will handle
+
+				waiters => NameNodes
+				NotePad => NFS => Network FileSystem (EditLogs ; WAL => write ahead logs)
+				
+				Customer expectaion: he need to get his order delivered
+					> automaticall need to be handled (without the knowledge of customer)
+
+	High Availability : 2 NameNodes will be there
+		Actively Serving => Active NameNode
+		Waiting => StandBy NameNode
+		
+	File => into HDFS => Blocks => 200MB => 2 Blocks
+							=> Parallel [once this stage is done data can be accessible]
+			Once the copy of block is done => then Replication happens
+							=> Seqential operation
+							
+	Benefit:
+		1. Fast Writes/Copies => Parallelism
+	
+Q: When the bifurcation of a file into block happens?
+Ans: HDFS 64 mb => gets from LFS 4kb (local file system) => 512 bytes at HDD => File
+	=> re-grouping of the blocks is happening across the layers
+
+HomeWork:
+1. Practice Linux Commands; google => "top 50 linux commands"
+	thegeekstuff.com
+2. HandsOn Linux Commands; google => "coding ground bash"
+	https://www.tutorialspoint.com/execute_bash_online.php
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

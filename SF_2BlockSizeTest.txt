@@ -1,0 +1,411 @@
+Recap:
+------
+
+What are we going to learn? BigData or Hadoop?
+	=> Yes, Hadoop.
+	
+What is BigData? [4 view points in which it may cause issue]
+	Data Engg:
+	=> Volume =>  greater than 10 TB => we can keep a file beyond the size of disk
+	=> Velocity => Data incoming speed => days => scalable feature => 10,000 nodes
+	=> Variety => Structured and UnStructured => email/xml/image =>  sql on text
+	Data Science:
+	=> Veracity => Trust worthiness of the data
+			[10, 20, 30, 90, 40] => highest mark => 90
+			[90, 90, 90, 90, 90] => highest mark => 90 => any mass coping happend
+			[0, 90, 0, 0, 0] => highest mark => 90 => any partiality of proffesor
+		
+			Did I ask the same question? Yes
+			Did I got the same result? Yes
+			Did the data used is same? NO
+	Finding a needle in a Haystack;
+			=> our PM asked us to get the highest temperature
+				recorded in the past year;
+					1 million sensors, per hr -> one record
+					24 X 365 X 1 million => big number
+					
+					question: max temperature
+					query: select max(temperature) from sometable;
+					store -> process => challenge
+					result: 2000 C
+					
+					modi: what is temp?
+					you: 2000 C
+					modi: as per my little knowledge 100 C is boiling point of water
+							beyond that means, we are already in a tandoor.
+							
+		Data Scientist: Domain + Math(Statistics) + Program (Hacker)
+
+		1 + 2 = 3; f(x) -> 2x + 3x^2 ; functional programming languages (R lang)
+
+Why Hadoop is popular?
+	=> To deal with bigdata (all 4vs can be handled)
+	=> no license; open source
+	=> performance + security(linux + kerberos)
+	=> scalable -> 10,000 machines
+	=> move the code not the data
+	=> does need high end hard ware
+	
+Cloud Computing => 2007 hype
+	IAAS => infrastructure as a service => hardware for rent
+	PAAS => platform as a service => OS level
+	SAAS => software as a service => software level
+Virtualization => 2010 hype => break a computer into many 
+Grid Computing => 2005 hype => opposite of virtualization
+
+
+Hadoop Architecture: => better software for better computer
+--------------------
+
+1 + 2 = 3;
+
+1,2 => data => storage management => many computers => distributed storage management => HDFS
++ => operation => process management => many computers => distributed process management => YARN
+
+HDFS => hadoop distributed file system
+YARN => yet another resource negotiator
+
+Hadoop = HDFS + YARN 
+
+all the master or slave nodes are nothing but a process in computer
+
+HDFS => master(NameNode) + slave(DataNode)
+YARN => master(ResourceManager) + slave(NodeManager)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Recap:
+------
+
+What are we going to learn? BigData or Hadoop?
+	=> Yes, Hadoop.
+	
+What is BigData? [4 view points in which it may cause issue]
+	Data Engg:
+	=> Volume =>  greater than 10 TB => we can keep a file beyond the size of disk
+	=> Velocity => Data incoming speed => days => scalable feature => 10,000 nodes
+	=> Variety => Structured and UnStructured => email/xml/image =>  sql on text
+	Data Science:
+	=> Veracity => Trust worthiness of the data
+			[10, 20, 30, 90, 40] => highest mark => 90
+			[90, 90, 90, 90, 90] => highest mark => 90 => any mass coping happend
+			[0, 90, 0, 0, 0] => highest mark => 90 => any partiality of proffesor
+		
+			Did I ask the same question? Yes
+			Did I got the same result? Yes
+			Did the data used is same? NO
+	Finding a needle in a Haystack;
+			=> our PM asked us to get the highest temperature
+				recorded in the past year;
+					1 million sensors, per hr -> one record
+					24 X 365 X 1 million => big number
+					
+					question: max temperature
+					query: select max(temperature) from sometable;
+					store -> process => challenge
+					result: 2000 C
+					
+					modi: what is temp?
+					you: 2000 C
+					modi: as per my little knowledge 100 C is boiling point of water
+							beyond that means, we are already in a tandoor.
+							
+		Data Scientist: Domain + Math(Statistics) + Program (Hacker)
+
+		1 + 2 = 3; f(x) -> 2x + 3x^2 ; functional programming languages (R lang)
+
+Why Hadoop is popular?
+	=> To deal with bigdata (all 4vs can be handled)
+	=> no license; open source
+	=> performance + security(linux + kerberos)
+	=> scalable -> 10,000 machines
+	=> move the code not the data
+	=> does need high end hard ware
+	
+Cloud Computing => 2007 hype
+	IAAS => infrastructure as a service => hardware for rent
+	PAAS => platform as a service => OS level
+	SAAS => software as a service => software level
+Virtualization => 2010 hype => break a computer into many 
+Grid Computing => 2005 hype => opposite of virtualization
+
+
+Hadoop Architecture: => better software for better computer
+--------------------
+
+1 + 2 = 3;
+
+1,2 => data => storage management => many computers => distributed storage management => HDFS
++ => operation => process management => many computers => distributed process management => YARN
+
+HDFS => hadoop distributed file system
+YARN => yet another resource negotiator
+
+Hadoop = HDFS + YARN 
+
+all the master or slave nodes are nothing but a process in computer
+
+HDFS => master(NameNode) + slave(DataNode)
+YARN => master(ResourceManager) + slave(NodeManager)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+T
