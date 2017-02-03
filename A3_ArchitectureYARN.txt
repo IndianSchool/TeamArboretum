@@ -1,0 +1,238 @@
+22-JAN-2017:
+------------
+
+Hadoop Architecture:
+	1. HDFS [done]
+	2. YARN [today]
+	
+Revision:
+--------
+
+What is Hadoop? [Both]
+	> Storage
+	> Processing
+	
+What is the default Block size?
+	> 128 MB in Hadoop2
+	> 64 MB in Hadoop1
+	
+Is the block size configurable? YES
+
+What is the default REPLICATION factor? 3
+
+Is the REPLICATION factor configurable? YES
+
+REPLICATION factor => balance between Fault-Tolerance and Storage-Space
+	ex: 4 TB HDD scenario
+		1 TB file => 3 REPLICATION => you need 3 TB space => 1.33 TB is max capacity
+		1 TB file => 4 REPLICATION => you need 4 TB space => 1 TB is max capacity
+		
+HDFS => Hadoop Distributed File System => Virtual File System
+	
+What is the Name of master process in HDFS? NameNode
+	What does it do?
+		> monitor the slaves
+		> store the metadata
+		
+What is the Name of slave process in HDFS? DataNode
+	What does it do?
+		> Store the Data [in the form of blocks]
+		> a.k.a [hosts the blocks]
+	
+What is a BLOCK? tiny unit of quantification in HDFS storage; a memory chunck.	
+	
+What are the Names of NameNodes in HighAvailability mechanism?
+	> Active NameNode - currently in service   
+	> StandBy NameNode - waiting to be in service
+	
+File => BLOCK => DataNodes => NameNode ---> memorise
+	
+Is BLOCK REPLICATION a parallel activity? No; Replication is Sequential
+	
+ex: 1 GB file => in hadoop1 => 16 x 64 MB = 1024 MB = 1 GB; 16 Blocks
+		2 Nodes => 2 writes can happen parallely => compartively slower
+		16 Nodes => 16 writes can happen parallely => faster
+	
+	more machines => faster the transfer
+	
+YARN => Yet Another Resource Negotiator:
+---------------------------------------
+
+Yarn => Processing Layer => in cluster [Distributed Processing]
+
+	To process[compute] some thing => we need coputational resources
+		Like: CPU + RAM + HDD + Network => Container
+		
+		We have a computer =>  i3(2 core/4 threads) + 4 GB + 256 GB
+			4 X container [ 1 logical core + 1 GB + 64 GB]
+			2 X container [ 1 physical core + 2 GB + 128 GB]
+	
+YARN => master(ResourceManager) + slave(NodeManager)
+
+Computer => Containers => NodeManager => ResourceManager ---> memorise
+
+Fun Q: Which layer can exist independently[doesnt need the other one]? HDFS or YARN?
+		HDFS; "because data comes first then processing"
+	
+HDFS Federation: [NameNode Scalability]
+	
+	Like TableSpace => which has tables and objects related to a db
+		smillimarly => NameSpace => is for file systems => the inverted tree structure
+		
+		normal:
+		------
+		/home/keshav/marriage-pics ==> / is starting point
+		/home/dinesh/holiday-pics ==> / is starting point
+		/home/prem/office-pics ==> / is starting point
+
+		divide:
+		------
+		/home/keshav/marriage-pics ==> /home/keshav is starting point => NN1
+		
+		/home/dinesh/holiday-pics ==> /home/dinesh is starting point => NN2
+		
+		/home/prem/office-pics ==> /home/prem is starting point => NN3
+		
+		
+		to scale the NameNode Horizontally without down time => 
+			divide the NameSpace => allocate it to multiple NameNodes
+			
+			ProTip: dont think about High-Availability Here.
+	
+Q: if you put a file in /home/prem/office-pics/boss-pics, this meta goes to which NameNode?
+		Ans: NN3
+	
+Q: if you put a file in /home/bharath/office-pics/boss-pics, this meta goes to which NameNode?
+		Ans: operation will fail; error will come as file or folder not exists;
+	
+Q: if you call a machine/node as a slave machine? What processes does it need to be running?
+		Ans: DataNode and NodeManager; slave machine is the work horse;
+				designed to work in isolation
+	
+HomeWork:
+--------
+1. Brush Up Java Skills
+	Core Java: OOPS, IO (read/write a file), String functions, Generics, Collections
+	
+	TutorialsPoint for Java;
+	JavaTpoint.com 
+	
+	Procedural Programming => 2 entities => 1. Function and 2. Data
+					sum(1,2) => 3
+					sum() => function; 1,2 => data
+	Obeject Oriented Programming => 1 entity 
+									=> has 2 parts 1. Method(fancy word for function)
+										=> 2. data
+					Object => method + data
+					String s = "jagadish";
+					String su = s.upper();
+					print(su);
+					-------------
+					JAGADISH
+					=================================
+					select UPPER('jagadish') from dual;
+
+Linux Quiz:
+-----------
+1. To list files in linux? 
+$ ls
+
+2. To long list the files in linux?
+$ ls -larth
+
+3. To rename a file?
+$ mv file1 file2
+
+4. To copy a file?
+$ cp file1 /dir
+
+5. To delete a file?
+$ rm file1
+
+6. To delete a folder?
+$ rm -r dir
+
+7. To display the content of a file?
+$ cat file1
+
+8. To see the command history?
+$ history
+
+9. To search a file?
+$ find
+
+10. To search something inside a file?
+$ grep
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
