@@ -1,0 +1,201 @@
+4-FEB-2017:
+-----------
+
+Tools to play:
+
+MobaXterm => to have offline practice for linux/unix/bash commands
+http://mobaxterm.mobatek.net/download-home-edition.html
+
+JDK => to develope java programs
+http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+
+Java: 
+
+JVM(java virtual machine) - JRE(java runtime environment) - JDK(java development kit)
+
+Do you have java installed on your machine?
+	=> JDK => the intent is you need to program (JRE is inside JDK)
+	=> JRE => the intent is consumption (JVM is inside JRE)
+
+	JDK => keyword is DEVELOPMENT => to develop a java program
+	JRE => keyword is RUNTIME => to run a java program
+
+
+JDK => RecordingStudio => `javac` command works	
+JRE => CassetteTapeRecorder => `java` command works
+JVM => HEAD of that (cant be there in isolation, needs JRE)
+
+1970 => IBM produced a white paper => RDBMS => 'select blah';
+data processing => write program => result
+
+Mysql => DataBase => its a software => every software need to be written in a language
+	=> c/c++ are used to develop Mysql
+
+HIVE => .. => written based on MapReduce (a bunch of java classes)
+
+Some Linux Commands:
+--------------------
+# to list the files
+$ ls
+
+# to create a directory
+$ mkdir
+
+# to rename a file
+$ mv
+
+# to move a file
+$ mv
+
+# to copy a file
+$ cp
+
+# to delete a file
+$ rm
+
+# to change a directory
+$ cd
+
+NEW:
+---
+# to create a file with older data [for some testing] YYYYMMDDHHmm.ss
+$ touch -t 201601011830 somefile.txt
+
+HDFS Commands:
+--------------
+# to list the files
+$ hdfs dfs -ls
+
+# to create a directory
+$ hdfs dfs -mkdir
+
+# to rename a file
+$ hdfs dfs -mv
+
+# to move a file
+$ hdfs dfs -mv
+
+# to copy a file
+$ hdfs dfs -cp
+
+# to delete a file
+$ hdfs dfs -rm
+
+
+
+Home Work:
+----------
+1. Solve the SumOfNumbers program without hard coding; based on input.
+2. Java Programs,
+	Keshav - 3 - keshav_ms.isds@gmail.com
+	Harish - 5 - harisha_acharya.isds@gmail.com
+	Dinesh - 10 - adineskumar.isds@gmail.com 
+	Vishwa - 10 - vishwanath_ml.isds@gmail.com
+	Prem - 10 - premkumar.isds@gmail.com
+	Bharath - 15 - vbharath.isds@gmail.com 
+3. Gmail Account; StackExchane.com (QA); GitHub.com (codeREPO); EverNote.com (DigitalNotes)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
