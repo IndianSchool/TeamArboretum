@@ -1,0 +1,183 @@
+int i;
+int i = 10;
+String s = "jagadish";
+
+int => data type
+i => variable => it holds the value
+
+Integer i2; => declaration
+new Integer(10); => creation of Integer 10
+
+Integer i2 = new Integer(10);
+
+object => new Integer(10)
+The only way you can access that object is by reference variable => i2
+
+object => data + methods => members => member can be data or method
+i2 => 10 + methods
+
+Integer => class => custom data type => data type outside normal
+i2 => reference variable => it holds the location of the value (kind of pointer/reference)
+-------------------------------------------------------------------------------------
+Biriyani, Cycle;
+
+Biriyani b;
+Cycle c;
+
+Real world => we interact with people/objects
+
+dinesh => object
+
+get methods => to know
+
+method => question => what is your name?
+return typte => answer => dinesh => string type
+
+method => question => what is your age?
+return typte => answer => 26 => int type
+
+set methods => to tell; to make them do;
+
+method => instruction => go and do home work.
+no return type will be there.
+
+
+int i = 10;
+i = 40;
+
+Integer i2 =new Integer(10);
+
+i2 = 40; -- no security
+i2.set(40); -- security
+
+j2 = i2.getValue();
+
+set(int x){ i2 = x; }
+set(int x){ if(iseligible) i2 = x; }
+
+For this reason => there is a set or get method will be there for every variable
+
+String s = "jagadish";
+String s = new String("jagadish")
+
+class => custom data type
+
+-----------------------------------------------------------------------------------------
+
+public => no security => any one(class) can access
+default => little security => package private => classes in same package can access
+protected => moderate security => default + accessed by another package with relationship
+private => full security => same class can access
+
+What are we acessing? Members (variables or methods)
+
+Who are access? our programs
+
+From where they are acessing ? same class? same package?
+
+Example: small cute family => dad, mom, girl-kid
+
+strong security:
+
+3 year old kid => only mom and dad can touch (same house) => private (same class)
+6 year old kid => wants to play => only colony members can touch/play (same colony) => default(same package)
+12 year old kid => want to goaround 
+	=> play/talk with any body in our colony + goto relatives house in next colony
+	(relationship => through sub-class/inheritence) => protected (same package + any sub-class in other package)
+20 year old kid => want to do what ever she want => any one can talk with her no restrictions
+		=> public (any class or any package)
+
+weak security:
+
+What are private,public,protected,default? They are ACCESS MODIFIERS.
+	with that keyword we know that who can access the member.
+---------------------------------------------------------------------------------------
+int i;
+int a,b,c;
+
+Biriyani b;
+Biriyani b1,b2,b3; => objects are line clones
+
+some situattions => we like clones, duplicates => we are happy => object
+
+other situations => we dont like clones => sky or earth or console => class
+
+example:
+
+keshave => half eaten biriyani => b1
+dinesh => full eaten biriyani => b2
+vishwa => not yet started => b3
+
+b1.howFarYouDone(); -- 0.5
+b2.howFarYouDone(); -- 0
+b3.howFarYouDone(); -- 1
+
+howFarYouDone() is this a question or instruction? question; thats why no input params
+
+question => usually => some return type + no input param
+instruction => usually => no return type + some input param
+
+no duplicates => talk with class => System.in => static
+duplicates => talk with object => s.upper() => non static => no keyword
+
+methods are 100% same, full copies;
+but data values will change over time with usage;
+
+all member names => start with small case
+all class names => start with upper case
+in the event of multiple words => use camelCase
+
+wordcount => hello world program of hadoop
+https://hadoop.apache.org/docs/stable/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html
+
+Cycle c;
+
+public static void main(String args[])
+
+public => accessable by any one
+static => only one copy allowed + that is the class
+void => no return type => nothing to send back
+main => starting point of execution
+String args[] => an array of strings with a r.variable 'args'
+String args... => an array of strings with a r.variable 'args'
+... => ellipses
+
+String s1 = "Jagadish"
+String s2 = s1.lower(); -- "jagadish"
+String s3 = s2.upper(); -- "JAGADISH"
+
+alternatively, as every return type is same object
+
+String s3 = s1.lower().upper();
+String s4 = s1.lower().upper().replace("s","f"); -- any dots we can put, as they are objects
+-- if return type is an object, happily apply dot[.]
+
+String args[] = {"1", "2"};
+int i = args.length; -- i = 2
+
+args => an object => has variables(length is a variable of type INT) + methods
+
+// in the world of variables
+int a=1, b=2;
+if (a==b){ //blah }
+
+// in the world of objects
+String a = "jagadish";
+String b = "kumar";
+String c = "kumar";
+String d = b;
+
+if (a==b){ //blah } -- compares the references (object refernces)
+if (b==c){ //blah } -- compares the references (object refernces)
+	-- false will come; in RAM a is stored at 0xx123; b is stored 012345rxc
+if (b==d){ //blah } -- compares the references (object refernces)
+	-- true will come
+	
+if (a.equals(b)){ //blah } -- compares the contents (members)
+if (b.equals(c)){ //blah } -- compares the contents (members)
+	-- ture will come
+
+
+
+
+
