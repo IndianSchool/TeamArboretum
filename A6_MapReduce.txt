@@ -1,0 +1,245 @@
+Some More Java:
+---------------
+
+for(int i:items) { } read ':' as 'in'
+
+for each item 'i' in 'items' collection
+for(int i=0; i<=items.length; i++) {}
+
+"1".equals()
+
+
+String a = "keshava";
+alternatively --> String a = new String("keshava");
+b = "dinesha"
+b = null;
+
+if (b.equals(a)  then 
+
+a.equals(b) => 
+"keshava".equals(b) => 
+
+if(b!=null){
+b.equals("keshava") => null pointer exception
+	as b itself is nto there
+}
+
+MapReduce:
+----------
+
+assume that we are living in cave days, no computers, no maths, no automation, no shortcuts
+
+1:Problem statement:
+--------------------
+Sum of one million numbers
+
+1
+2		3
+3		6
+4		10
+5		15
+.
+.
+1M		XXXX
+1,000,000 => american
+10,00,000 => indian => 10 Lakhs
+
+Keshav => 1 person => 10 days
+Group => 10 People => 1 days
+
+Flexibility => involve your friends, assume keshave has 10 friends(including him)
+
+Distribute the Work load;
+load => 1M => 10 L
+how to distribute? 1 Lakh to 1 Person
+
+Map: a logic applied on the divided data to produce an intermediate result
+----
+p1 => 1 to 1L => Add => r1
+p2 => 1L1 to 2L => Add => r2
+p3 => 2L1 to 3L => Add => r3
+.
+.
+p10 => 9L1 to 10L => Add => r10 ; here ADD is map logic
+
+are we done? NO
+Reduce: a logic applied on the intermediate data to produce an aggregated final result
+-------
+r1 + r2 + .. + r10 => R => XXXX ; here also ADD is reduce logic
+
+1
+2		3
+3		6
+4		10
+5		15
+
+3 persons
+
+1p => 1,2 => add => 3
+2p => 3 => add => 3 
+3p => 4,5 => add => 9
+
+3 + 3 + 9 = 15; Hence Proved
+	
+2:Problem Statement:
+--------------------
+Go and watch love story movies.
+
+	input => downloaded IMDB dataset =>1 million movie names [english]
+	output => love story movies
+	
+	stupid algorithm => if the movie name has love in it, it might be love story
+	
+	Love Story => added to list
+	I Love You => added
+	Titanic => ignores
+	
+map: search/filter/check for LOVE keyword
+reduce: keeping all of them in one list (concatenation or consolidation)
+			concatenation => keeping them together
+			
+3:Problem Statement:
+-------------------
+
+Find the Max Temperature for the year
+
+---------input.txt
+a;lkdsfjaldksfjaldkfja;ldk2015fja;dklfja;lkdfj;alk33sdfj
+a;lkdsfjaldksfjaldkfja;ldk2015fja;dklfja;lkdfj;alk34sdfj
+.
+.
+a;lkdsfjaldksfjaldkfja;ldk2015fja;dklfja;lkdfj;alk35sdfj
+a;lkdsfjaldksfjaldkfja;ldk2015fja;dklfja;lkdfj;alk32sdfj
+
+--------output.txt
+2015, 35
+
+way1:
+----
+map: extract YEAR+TEMP
+reduce: max of TEMP
+
+way2:
+----
+map: extract YEAR+TEMP; Find Max here on this scope
+reduce: max of TEMP on the overall scope
+
+4:Problem Statement:
+--------------------
+Deidentify Health Records:
+
+save the privacy of the data; mask (mail-id + disease)
+
+input.txt
+---------
+keshav, 50, male, fever, 4, keshav@gmail.com
+.
+.
+harish, 40, male, cold, 1, hari@gmail.com
+
+
+output.txt
+---------
+keshav, 50, male, xxxx, 4, abc@xyz.com
+harish, 40, male, xxxx, 1, abc@xyz.com
+
+map: find the attribute(disease, mail-id) and mask
+reduce: consolidate into a list
+
+can we skip reducer? do we need all the time?
+	=> when ever you use reducer for consolidation, you can ignore it.
+	=> becoz, literally we didnt apply any logic
+
+Always MAP is mandatory; Reducer can be OPTIONAL. (ex: 2 and 4)
+	
+a simple linux command can be used to consolidate:
+
+$ ls
+a.txt b.txt c.txt
+
+$ cat * > d.txt
+
+Name few aggregation functions in SQL? SUM, MAX, AVG, MIN, COUNT
+
+many values => aggregation => one value comes out
+1,2,3 => SUM => 6
+1,2,3 => MIN => 1
+1,2,3 => MAX => 3
+1,2,3 => COUNT => 3
+1,2,3 => AVG => 2
+
+If you dont have aggregation in your problem statement, ignore reducer.
+
+will it rain tomorrow? YES or NO 50-50 chance
+last 10 days its raining, will it rain tomorrow? YES > 50% chance
+
+more past data => better future prediction => predictive analytics
+
+monitor that ECG data; 
+
+What is MapReduce?
+	=> a way of programming, it a programming model/paradigm
+	=> name of the processing layer in hadoop1
+	=> name of the library/package used in mapreduce programs
+Hadoop0 => HDFS + MR (MRV1)
+Hadoop1 => HDFS + MR (MRV2)
+Hadoop2 => HDFS[2] + YARN (MRV2)
+Hadoop3 => HDFS[3] + YARN (MRV3)
+
+HDFS2 => NameNode High Availablity + NameNode Federation
+HDFS3 => mount HDFS also
+MRV1 => package name is mapred
+MRV2 => package name is mapreduce
+MRV3 => 40% more speed
+
+Hadoop1 => HDFS + MR (a resource can be given only for MR opearation) [JobTracker + TaskTracker]
+Hadoop2 => HDFS + YARN (a resource can be given for any operation) [ResourceManager + NodeManager]
+	
+
+
+	
+	
+Java Point of View:
+------------------
+Map => map logic => class => mapper
+Reduce => reduce logic => class => reducer
+Conf => mapping => class => driver
+
+Driver
+	- Mapper
+	- Reducer
+	
+Class
+	- inner class1
+	- inner class2
+	
+Class1
+Class2
+Class3
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
