@@ -1,0 +1,213 @@
+Some More Java:
+
+Inheritence => parent - child
+
+Interface => Contract Document => Business Perspective
+				=> what ever you mention here, I expect it to be there.
+				
+				implementation => alwasy hidden to user / unnecessary / we wont care about internals
+
+Nothing will be implemented here in interface. we only declare here.
+		only names will be there; body wont be there
+		
+		StartUp {void on(); void off();}
+				
+				Keshav => nissan micra implements StartUp {
+						on(){
+						..
+						... top secret of nissan
+						...}
+						}
+				
+				bharath => yamaha bike implements StartUp {}
+				
+			Implementation always will happen at class level	
+			
+abstract class vs interface:
+
+normal class => no abstract methods
+
+class { void super() {System.out.println("super");}
+		void duper() {System.out.println("duper");}}
+
+abstract class => atleast one abstract method
+		
+class { void super() {System.out.println("super");}
+		abstract void duper();}}
+				
+interface => all methods need to be abstract => pure abstract class
+				
+		StartUp {void on(); void off();}
+				
+			Beginner
+			Book: Head First Java
+				=> Author: Kathy Sierra and Berty Bates => Amazing Book
+				
+			Expert
+			Book: SCJP 5/6 study guide => Kathy Sierra and Berty Bates => Amazing Books
+				
+int i1 = 10;
+Integer i2 = new Integer(10);
+				
+		if (i1 == i2.getVal() ) {}		// earlier, we need to cast explicitly
+		if (i1 == i2 ) // now not required
+		
+HelloWorld Program in Hadoop: WordCount
+----------------------------------------
+
+Problem statement: wordcount: how many times a word occured in the text
+				
+input.txt:
+----------
+dear, car, river
+car, car, river
+dear, car, bear
+
+output.txt:
+-----------
+bear 1
+car 4
+dear 2
+river 2
+
+PHASES : MAP - Sort and Shuffle - REDUCE
+COMMUNICATION: always happens through KEY-VALUE mechanism
+
+key-value => easiest representation of relational data
+				=> a simple way to represent data; 
+	
+	java:3
+	sql:2
+	
+	what is your name?
+	my name is jagadish
+	
+	name:jagadish
+	
+	q:a
+	
+	
+entire hadoop, all components only talks in key-value pair language
+
+input,file => k,v => map => k,v => SS => k,v => reduce => k,v => output,file
+				
+input => map
+
+dear, car, river
+car, car, river
+dear, car, bear
+
+entry in the form of k,v => (ByteOffset, Line)				
+			ByteOffset => first character position index
+				(0, "dear, car, river") map logic
+					"dear, car, river" => break line into words
+							=> dear :: car :: river
+							=> dear,1 :: car,1 :: river,1
+				(16, "car, car, river")
+							=> car,1 :: car,1 :: river,1
+				(30, "dear, car, bear")
+							=> dear,1 :: car,1 :: bear,1
+SS:				
+---
+1. Sort all KEY-VALUE pairs by Keys
+2. group all the value per key (shuffle)
+
+dear,1
+car,1
+river,1
+car,1
+car,1
+river,1			
+dear,1
+car,1
+bear,1				
+				
+1 => sort				
+				
+bear,1				
+car,1
+car,1
+car,1
+car,1
+dear,1
+dear,1
+river,1
+river,1			
+
+2 => shuffle				
+				
+bear, [1]				
+car, [1,1,1,1]
+dear, [1,1]
+river, [1,1]
+			
+Reduce:
+-------
+
+bear, [1]				
+car, [1,1,1,1]
+dear, [1,1]
+river, [1,1]
+				
+logic => add the value related to the key
+
+bear, 1				
+car, 4
+dear, 2
+river, 2
+
+HDFS => input and output
+MR => program
+				
+output => always a folder
+
+To write MR program, how many classes we need? 3
+	1. Mapper 2. Reducer 3. Driver (mapping class)
+	
+Driver
+	-Mapper (get the line, break it into words, fram k,v, emit)
+	-Reducer (get the key with values-list, sum the values in the list for the key)
+				
+we need to provide input? import input related
+we need to provide output? import output related
+
+Hadoop uses special data types; String and Integer , [Text and IntWritable]
+				
+	data type need to be preserved so that we can transfer between systems
+			=> serilization
+			
+			=> object converted into special file => serilization
+			=> special file converted into object => deserilization
+			
+$ hadoop jar /location/of/jarfile program-name /input/path /output/path
+	
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
