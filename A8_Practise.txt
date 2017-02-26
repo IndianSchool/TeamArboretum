@@ -1,0 +1,165 @@
+User => Java => MR => Hadoop => result
+User => commands => PIG => Java => MR => Hadoop => result
+User => sql => HIVE => Java => MR => Hadoop => result
+
+-- command to run the program
+
+$ hadoop jar /location/of/jarfile program-name /input/path /output/path
+
+HomeWork:
+---------
+
+Java
+Eclipse
+Different types of WordCount examples
+
+HDFS practice:
+-------------
+
+1. create a file named a.txt with some content.
+2. list the files in hdfs root dir
+3. put the a.txt from local machine to hdfs root dir.
+4. display the contents of the a.txt file in hdfs.
+5. create a directory in hdfs with your name. ex: dinesh or vishwa
+6. create a directory in hdfs with my name. ex: jagadish
+7. move the a.txt file from root to jagadish
+8. copy the a.txt file from jagadish to your_name folder (dinesh or vishwa)
+9. bring back the a.txt file from vishwa to local
+10. check whether the changes taken place as expected
+
+Assignments:
+------------
+
+Word Count => 
+	1. some one can give you the code; ability to execute; eclipse or command-line
+	2. you got requirement; ability to code
+			10 near ways to do the same task;
+			-> word count -> good one to start -> Hadoop2 + Inner_Classes
+				-> 3 different classes, 3 different java files
+				-> Generic Options
+				-> ToolRunner
+				-> Hadoop1 -> another way of doing; JobConf JobSubmit
+				-> MRv1 => mapred package
+				-> MRv2 => mapreduce package
+				-> any other
+
+Dinesh -> 50 mins, demistify in 20 mins, 5 - 10 program, demo of benefits
+Keshav -> usecases for list, set, map, queue, etc; bring program, demo, restrictions/features
+Vishwa -> generics, 5 - 10 program, quora, stack overflow
+Harish -> hdfs commands, some new 20 commands
+Prem   -> collections comparision of java vs sql-server; A union B; A intersection B; A minus B; together or exclusive feature
+Bharath -> bring programs for all the ones he put on the board
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
