@@ -1,0 +1,105 @@
+-----------------------------------------------------------------------
+-- Topic 			:	Generics in Java
+-- 
+-- Description 		:	We will dive deep into generics with some examples.
+-- 
+-- Author			:	Dinesh Kumar A
+-----------------------------------------------------------------------
+-- Version Id 	| 	Description of Chnage		|	 Version Date
+-----------------------------------------------------------------------
+-- 0.1			|	Initial Draft added			|	5th March 2017
+-----------------------------------------------------------------------
+Generics in java
+================
+1. What is generics ?
+	Generics helps us to get the runtime errors while compiling itself.
+	There are scenarios where your code would be compiled successfully without any warnings or errors.
+	But when you run or execute the same code after compiling you might get some errors ( may be on data types conversion, etc ).	
+	This kind of scenarios will be very difficult in general to debug. So to overcome this scenario we can go ahead with generics in Java.
+	
+2. Uses of Generics?
+	a. Tracks the runtime errors and notifies the same during compile time itself.
+	b. Provides us Type Safing. Ensures only the specified input format was passed to our code.
+	c. Improving coding efficiency by allowing us inherit different using a single generic class/objects.
+
+	
+Programs in Generics:
+======================================================================
+Program:1 -- Here we are creating an ArrayList first
+			 Then we are adding two string objects into the ArrayList
+			 Till this we don't have any issues
+			 Java compiler is good enough to understand the code and it works fine as expected.
+			 But the problem comes up when we try to assign this to a variable before performing our logic.
+			 Refer "program:2" for reference
+
+import java.util.*;
+
+public class GenericExample_01
+{
+	public static void main (String[] args)
+	{
+		List list = new ArrayList();
+		list.add("Dinesh");
+		list.add("Hai!....how are you?");
+		
+		System.out.println(list.get(0));
+		
+	}
+}
+
+======================================================================
+Program:2 -- Here we are trying to assign the value from the list to String object
+		  -- We cannot assign the value of the list directly to any Type( Ex. String )
+		  -- Instead we have to change the TYPE of the VARIABLE to object type
+		  -- Or We have to go for TYPE CASTING
+
+
+
+import java.util.*;
+
+public class GenericExample_02
+{
+	public static void main(String[] args)
+	{
+		List list = new ArrayList();
+		list.add("Dinesh");
+		list.add("Hai!....how are you?");
+		
+		// String s = list.get(0);        // Illegal to use, as we cannot assign an Object type to any variable.
+										  // Remember always collections returns object type.
+		Object s = list.get(0);           // variable  s had been changed to OBJECT type
+		String s1 = (String) list.get(0); // type casting the list value to string before assigning it to a variable s.
+		System.out.println(s); 
+		System.out.println(s1); 
+	}
+}
+
+======================================================================
+Program:3 -- Stepping into generics
+		  -- As the program - 1 and 2 needs to change either the Type of a variable or we need to go for the TYPE CASTING
+		  -- We will go for the Generics for the below advantages.
+		  -- if we use generics, there is no need for TYPE CASTING and also no need for changing the TYPE of the variable 
+		  
+		  
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class GenericExample_03 {
+
+	public static void main(String[] args) {
+		
+		List<String> list = new ArrayList<>(); // Creating a generic ArrayList of String Type. It expects the input in the form of String only.
+		list.add("String is added");           
+		list.add("Another String added");
+		
+		String s = list.get(0);               // notice the difference from the previous programs 			  
+		String s1 = list.get(1);              // there is no type casting or variable type change.
+		
+		System.out.println(s);
+		System.out.println(s1);
+	}
+
+}
+		  
+======================================================================
