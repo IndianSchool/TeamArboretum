@@ -1,0 +1,248 @@
+Union:
+------
+
+import java.util.TreeSet;
+ 
+
+public class HelloWorld
+
+{
+
+    
+	public static void main(String[] args) 
+    
+	{
+        
+		Integer[] arrayOne = { 4, 11, 2, 1, 3, 3, 5, 7 };
+        
+		Integer[] arrayTwo = { 5, 2, 3, 15, 1, 0, 9 };
+        
+		Integer[] union = findUnion(arrayOne, arrayTwo);
+         
+        
+		System.out.println("\nUnion of Two Arrays: ");
+        
+        
+		
+		for (Integer entry : union) 
+        
+		{
+
+			System.out.print(entry + " ");
+        
+		}
+    
+	}
+     
+    
+
+	public static Integer[] findUnion(Integer[] arrayOne, Integer[] arrayTwo) 
+    
+	{
+        
+		TreeSet<Integer> hashedArray = new TreeSet<Integer>();
+        
+        
+	
+		for (Integer entry : arrayOne) 
+        
+		{
+            
+			hashedArray.add(entry);
+        
+		}
+     
+        
+
+		for (Integer entry : arrayTwo) 
+        
+		{
+            
+			hashedArray.add(entry);
+        
+		}
+     
+        
+
+		return hashedArray.toArray(new Integer[0]);
+    
+	}
+
+}
+
+
+To Find Union Of Multiple Arrays Using HashSet
+----------------------------------------------
+
+import java.util.Arrays;
+import java.util.HashSet;
+ 
+public class MainClass
+{   
+    static void union(int[] ... inputArrays)
+    {
+        HashSet<Integer> unionSet = new HashSet<Integer>();
+         
+        System.out.println("Input Arrays :");
+         
+        System.out.println("======================");
+         
+        for (int[] inputArray : inputArrays)
+        {
+            System.out.println(Arrays.toString(inputArray));
+             
+            for (int i : inputArray)
+            {
+                unionSet.add(i);
+            }
+        }
+         
+        System.out.println("===========================");
+         
+        System.out.println("Union Of All Input Arrays :");
+         
+        System.out.println("===========================");
+         
+        System.out.println(unionSet);
+    }
+     
+    public static void main(String[] args)
+    {   
+        int[] inputArray1 = {2, 3, 4, 7, 1};
+         
+        int[] inputArray2 = {4, 1, 3, 5};
+         
+        int[] inputArray3 = {8, 4, 6, 2, 1};
+         
+        int[] inputArray4 = {7, 9, 4, 1};
+         
+        union(inputArray1, inputArray2, inputArray3, inputArray4);
+    }
+}
+
+
+To Find Intersection Of Multiple Arrays
+---------------------------------------
+
+import java.util.Arrays;
+import java.util.HashSet;
+ 
+public class MainClass
+{   
+    static void intersection(Integer[] ... inputArrays)
+    {   
+        //Printing input arrays
+         
+        System.out.println("Input Arrays :");
+         
+        System.out.println("======================");
+         
+        for (Integer[] inputArray : inputArrays)
+        {
+            System.out.println(Arrays.toString(inputArray));
+        }
+         
+        //Creating HashSet object for first input array
+         
+        HashSet<Integer> intersectionSet = new HashSet<>(Arrays.asList(inputArrays[0]));
+         
+        //Calling retainAll() method of first object by passing 2nd, 3rd, 4th... objects
+         
+        for (int i = 1; i < inputArrays.length; i++)
+        {
+            HashSet<Integer> set = new HashSet<>(Arrays.asList(inputArrays[i]));
+             
+            intersectionSet.retainAll(set);
+        }
+         
+        System.out.println("===========================");
+         
+        System.out.println("Intersection Of All Input Arrays :");
+         
+        System.out.println("===========================");
+         
+        System.out.println(intersectionSet);
+    }
+     
+    public static void main(String[] args)
+    {   
+        Integer[] inputArray1 = {2, 3, 4, 7, 1};
+         
+        Integer[] inputArray2 = {4, 1, 3, 5};
+         
+        Integer[] inputArray3 = {8, 4, 6, 2, 1};
+         
+        Integer[] inputArray4 = {7, 9, 4, 1};
+         
+        intersection(inputArray1, inputArray2, inputArray3, inputArray4);
+    }
+}
+
+
+To Reverse An Array 
+-------------------
+
+import java.util.Arrays;
+ 
+public class ArrayReverseExample
+{ 
+    static void reverseArray(int inputArray[])
+    {
+        System.out.println("Array Before Reverse : "+Arrays.toString(inputArray));
+         
+        int temp;
+         
+        for (int i = 0; i < inputArray.length/2; i++)
+        {
+            temp = inputArray[i];
+             
+            inputArray[i] = inputArray[inputArray.length-1-i];
+             
+            inputArray[inputArray.length-1-i] = temp;
+        }
+         
+        System.out.println("Array After Reverse : "+Arrays.toString(inputArray));
+    }
+     
+    public static void main(String[] args)
+    {   
+        reverseArray(new int[]{4, 5, 8, 9, 10});
+         
+        System.out.println("-------------------------");
+         
+        reverseArray(new int[]{12, 9, 21, 17, 33, 7});
+         
+        System.out.println("-------------------------");
+         
+        reverseArray(new int[]{891, 569, 921, 187, 343, 476, 555});
+    }   
+}
+
+
+Union/Intersection/Difference/Reverse
+-------------------------------------
+
+Set<Integer> a = new TreeSet<Integer>(Arrays.asList(new Integer[]{0,2,4,5,6}));
+Set<Integer> b = new TreeSet<Integer>(Arrays.asList(new Integer[]{5,6,7,8,9}));
+ 
+//union
+Set<Integer> c = new TreeSet<Integer>(a);
+c.addAll(b);
+System.out.println(c);
+ 
+//intersection
+Set<Integer> d = new TreeSet<Integer>(a);
+d.retainAll(b);
+System.out.println(d);
+ 
+//difference
+Set<Integer> e = new TreeSet<Integer>(a);
+e.removeAll(b);
+System.out.println(e);
+ 
+//reverse
+List<Integer> list = new ArrayList<Integer>(a);
+java.util.Collections.reverse(list);
+System.out.println(list);
+
+ 
