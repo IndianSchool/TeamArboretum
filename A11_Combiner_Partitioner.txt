@@ -1,0 +1,193 @@
+Job1 => MR
+Job2 => MR
+
+MapReduce
+Map => Reduce
+Input => Map => Reduce => Output
+Input => Map => Sort and Shuffle => Reduce => Output
+Input => (k,v) => Map => (k,v) => Sort and Shuffle => (k,v) => Reduce => (k,v) => Output
+
+what value they have?
+what data type they belong?
+
+input => k,v => (ByteOffset, Line) => (numrical, string) => (LongWritable, Text)
+map => k,v => (word, 1) => (string, numerical) => (Text, IntWritable)
+ss => k,v => (word, [1,1,1]) => (string, numerical[List]) => (Text, IntWritable)
+reduce => k,v => (word, 3) => (string, numerical) => (Text, LongWritable)
+
+(LongWritable, Text) => map => (Text, IntWritable)
+(Text, IntWritable) => reduce => (Text, LongWritable)
+
+Java => byte, short, int, long => primitives
+Integer => class
+BigInt => class
+
+Java => String
+Hadoop => Text => String with super powers
+
+Hadoop DataTypes => need to be writable and comparable implemented
+
+Combiner: a local reducer; mini reducer; semi reducer;
+		works at mapper level
+
+	Can I use a reducer logic for combiner all the time?
+		mostly YES, if it follows 2 principles
+		
+		a +  b = b + a ; commutative property; order is not important
+		a/b != b/a; 
+		
+		a + (b+c) = (a+b) + c; associative property; group is not important 
+		
+		sum -> reuse reducer as combiner
+		avg -> sum.of.obs/no.of.obs => dont use
+
+Partitioner:
+
+	its routes the k,v pair traffic to reducers based on the key.
+
+		hi -> r1
+		hello -> r2
+		how -> r3
+		
+		Hashing => phd; string -> number -> universally
+			math divisibility rule -> 3 reducers => 3
+			
+			prem  => 4 % 3 => 1
+			harish => 9 % 3 => 0
+			keshav => 10 % 3 => 1
+			dinesh => 2 % 3 => 2
+			jagadish => 7 % 3 => 1
+			vishwa => 4 % 3 => 1
+			
+		Key => imp 
+		returns => int => reducer number
+		
+		reducer number starts with 0; red1 => red0
+		
+
+No Reducer;
+One Reducer;
+Multiple Reducer;
+
+default => 1 reducer
+
+---------------inputfile.txt
+2017Jan
+2017Feb
+2017Mar
+
+------output.txt
+Jan
+Feb
+Mar
+
+needed in different files
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
