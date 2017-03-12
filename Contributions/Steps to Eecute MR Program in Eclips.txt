@@ -1,0 +1,30 @@
+Steps to Take the code compile and run the code.
+1. Open Eclipse --> Create a Project --> Create Java Class
+2. Write a MR program for the WordCount.
+3. Import the JAR Files. from below paths
+Go to Build path -> Configure Path --> Libraries--> Add External Jars
+Add All Jar files under , if requered add all JARS from lib directories also
+Paths:
+1. /usr/lib/hadoop-2.2.0/share/hadoop/common
+2. /usr/lib/hadoop-2.2.0/share/hadoop/mapreduce
+3. /usr/lib/hadoop-2.2.0/share/hadoop/yarn
+
+-----------------Not Requred now--------------------------------
+1. /usr/lib/hadoop-2.2.0/share/hadoop/hdfs
+2. /usr/lib/hadoop-2.2.0/share/hadoop/httpfs
+3. /usr/lib/hadoop-2.2.0/share/hadoop/tools
+----------------------------------------------------------------
+
+4. See are there any compilatio errors
+5. make sure there are no redlines in code 
+6. Goto Run--> Run Configurations --> In left work space create New.
+7. It will automatically creates one link under Scala Application.
+8. Make sure Project and main class are porper.
+9. Goto Arguments tab.
+10 Write input file and output directory in program arguments text area
+11. Click on apply
+12. Clic on Run
+
+Program should be executed successfuly without ant errors inConsle of Eclpise
+
+Verify the output.
