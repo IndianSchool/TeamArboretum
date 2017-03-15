@@ -25,6 +25,6 @@ Paths:
 11. Click on apply
 12. Clic on Run
 
-Program should be executed successfuly without ant errors inConsle of Eclpise
+Program should be executed successfuly without ant errors in console of Eclpise
 
 Verify the output.
