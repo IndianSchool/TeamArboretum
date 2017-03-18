@@ -1,0 +1,32 @@
+As a Learner:
+-------------
+	1. Data Sets(10 set per person)
+	2. Problem Statement (100 per person)
+	3. Code Repositories (10 per person)
+	4. Helpful websites/blog/videos/forums/stackoverflow/books/etc List
+
+Assignments:
+------------
+
+1. WordCount
+		- with generic options
+		- with ToolRunner
+		- with Tool
+		- with Multiple Classes
+		- with One Class with inner classes
+2. Find
+		- find a keyword in the given file and display the matched lines
+3. Find Replace
+		- find and replace the value in the text
+4. Pass Parameters
+		- soft code, pass 'keyword' from outside
+		- tricky, how to pass to mapper
+		- jagadish option - dpoi
+5. Max Length word
+		- find the biggest word from the dictionary
+		- jagadish option - ***up(s)
+
+
+
+
+
