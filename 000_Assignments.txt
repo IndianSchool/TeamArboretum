@@ -9,15 +9,21 @@ Assignments:
 ------------
 
 1. WordCount
-		- with generic options
-		- with ToolRunner
+		- with generic options 
+		- with ToolRunner	- Done Vishwa
+		- with Multi Reducers - Done Vishwa
 		- with Tool
-		- with Multiple Classes
-		- with One Class with inner classes
+		- with Multiple Classes - 
+		- with One Class with inner classes and plain - Done Jagadish
 2. Find
 		- find a keyword in the given file and display the matched lines
+		- find == grep; find-replace==sed; get the src code from net; observe
 3. Find Replace
-		- find and replace the value in the text
+		- find and replace the value in the text; ex: Lalbagh instead of London - Done Dinesh
+		- find and replace the value in the text; omitting substrings; tom vs custom
+		- only mapper job - Done Dinesh
+		- case sensitive [user input or hardcode]
+		- regex vs split line to words
 4. Pass Parameters
 		- soft code, pass 'keyword' from outside
 		- tricky, how to pass to mapper
@@ -25,8 +31,48 @@ Assignments:
 5. Max Length word
 		- find the biggest word from the dictionary
 		- jagadish option - ***up(s)
+6. Driver vs Mapper Vs Reducer
+		- use differenct data types for key value pairs
+		- observe, setting in driver vs default
+7. LineCount - Vishwa
+8. LetterCount - Vishwa
+9. DistinctWords - Vishwa
+10. DistinctLines - Vishwa
+11. WordMedian - Vishwa
+12. Aggregate Word Count - Vishwa
+13. Aggregate Word History - Vishwa
+14. Word Count - single File - multi split - Vishwa
+15. Word Count - single File - Single Split force - Vishwa
+16. Word Count - multi file - multi split - Vishwa
+17. Word Count - multi file - single split - Vishwa
+18. Word Mean - Vishwa
+19. Word Standard Deviation - Vishwa
+20. Word Varience - Vishwa
+21. Word Mode - Vishwa
+22. Secondary Sort - Dinesh
+23. Sort - seems nothing to do - Dinesh
+24. Tera Gen - Dinesh
+25. Tera Sort - Dinesh
+26. Tere Validate - Dinesh
+27. Join - Harish
+28. Random Text Writer - Harish
+29. Random Writer - Dinesh
+30. Word Count - Reverse Sort Order - Vishwa
 
 
 
+
+		
+Generic Tasks:
+--------------
+1. GitHub ReadMe.md file, How to format it? - Dinesh
+
+Jagadish Check List:
+---------------------
+Load DataSet.
+Load Tested Jars.
+Load Code in Tested Jars.
+Write about Jar usage.
+Write about DataSet location URL.
 
 
