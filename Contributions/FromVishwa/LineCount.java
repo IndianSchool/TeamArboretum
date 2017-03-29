@@ -60,4 +60,4 @@ public class LineCount {
 }
 
 //home/edureka/vishwa/v001.txt
-//home/edureka/vishwa/linecount2
+//home/edureka/vishwa/wordcount2
