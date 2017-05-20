@@ -1,0 +1,176 @@
+=========================================================================================================================================
+Max Length Word Program 
+=========================================================================================================================================
+Program     : MaxLengthWord.jar
+Purpose     : To find the word with max length in a file
+Logic used  : 1. Split the line into word using Mapper
+              2. In reducer, use setup method and just declare a string variable to hold the word with maximum length
+              3. In reduce method, check if the incoming key length is greater than the existing or previous key. 
+                 If the new/incoming key length is greater than the existing then the maxword with the max length word.
+              4. Use cleanup method, to put the final output into file using context.
+              
+              Here we use setup and cleanup method, to keep track of the max length word.
+              Setup method will run only once before the mapper/reducer starts
+              Cleanup method will run only once at the end of the the mapper/reducer.
+              
+
+Input format  : Hai, Tom, How are you ?
+                Atom is a fine lowest level unit.
+                Optometrics.
+                He is the regular customer to BRAND FACTORY.
+
+Expected Output : Optometrics.    12
+=========================================================================================================================================
+Steps to run :  1. Place all your input files into one HDFS folder as below.
+                    /HandsOn/input/wordcount.txt
+                    
+                2. Create jar file using MaxlengthWordDriver.java, MaxLengthWordMapper.java and MaxlengthWordReducer.java programs
+                     Command Create jar file :  jar cvf <java file path> <jar file path>
+                                                jar cvf MaxlengthWordDriver.java MaxLengthWordMapper.java MaxlengthWordReducer.java ./Jar_files/MaxLengthWord.jar
+                3. Then run this program using the below command :
+                      hadoop jar <jar file name> <Class name> <input folder path> <output folder path>
+                      hadoop jar ./Jar_files/MaxLengthWord.jar MaxlengthWordDriver /HandsOn/input/wordcount_*.txt /HandsOn/output/max-length-word-out
+=========================================================================================================================================
+Pseudocode :  
+============
+
+Input file(wordcount.txt) --Each line in a file will be sent to Mapper as key value pair -- <Key = Byte Offest, value = Line>
+
+    Mapper Input :  	  <BOF>,<Hai, Tom, How are you ?>
+<LongWritable>,<Text>   <BOF>,<Atom is a fine lowest level unit.>
+                    	  <BOF>,<Optometrics.>
+                    	  <BOF>,<He is the regular customer to BRAND FACTORY.>
+ 
+ Mapper splits the entire line into separate words and make it as Key and assign length as value
+     
+     Mapper Output: 	  <Hai,>, <4>
+<Text>,<IntWritable>    <Tom,>, <4>
+                    	  <How>, <3>
+	        	            <are>, <3>
+        	              <you>, <3>
+                    	  <Atom>, <4>
+                    	  <is>, <2>
+                    	  <a>, <1>
+                    	  <fine>, <4>
+                    	  <lowest>, <6>
+                    	  <level>, <5>
+                        <unit.>, <5>
+                        <Optometrics.>, <12>
+                        <He>, <2>
+                        <is>, <2>
+                        <the>, <2>
+                        <regular>, <7>
+                        <customer>, <8>
+                        <to>, <2>
+                        <BRAND>, <5>
+                        <FACTORY>, <6>
+ 
+ Then reducer aggregates all the data which coming from different sort and shuffle phases, here we have only one reducer used.
+  
+          Setup Input : maxword = null ( at initial stage ) and length(maxword) = 0 
+       Reducer Output : <Hai,>, <4>                 length("Hai,") = 4 > 0  => TRUE   => UPDATE maxword = "Hai," and length(maxword) = 4
+<Text>,<IntWritable>    <Tom,>, <4>                 length("Tom,") = 3 > 4  => FALSE  => No change
+                    	  <How>, <3>                  length("How")  = 3 > 4  => FALSE  => No change
+	        	            <are>, <3>                  length("are")  = 3 > 4  => FALSE  => No change 
+        	              <you>, <3>                  length("you")  = 3 > 4  => FALSE  => No change 
+                    	  <Atom>, <4>                 length("Atom") = 4 > 4  => FALSE  => No change 
+                    	  <is>, <2>                   length("is")   = 2 > 4  => FALSE  => No change 
+                    	  <a>, <1>                    length("a")    = 1 > 4  => FALSE  => No change 
+                    	  <fine>, <4>                 length("fine")  = 4 > 4  => FALSE  => No change 
+                    	  <lowest>, <6>               length("lowest")  = 6 > 4  => TRUE  => UPDATE maxword = "lowest" and length(maxword) = 6  
+                    	  <level>, <5>                length("level")  = 5 > 6  => FALSE  => No change 
+                        <unit.>, <5>                length("unit.")  = 5 > 6  => FALSE  => No change
+                        <Optometrics.>, <12>        length("Optometrics.")  = 12 > 6  => TRUE  => UPDATE maxword = "Optometrics." and length(maxword) = 12 
+                        <He>, <2>                   length("He")     = 2 > 12 => FALSE => No change
+                        <is>, <2>                   length("is")     = 2 > 12 => FALSE => No change
+                        <the>, <2>                  length("the")    = 3 > 12 => FALSE => No change
+                        <regular>, <7>              length("regular")= 7 > 12 => FALSE => No change
+                        <customer>, <8>             length("customer")= 8 > 12 => FALSE => No change
+                        <to>, <2>                   length("to")     = 2 > 12 => FALSE => No change
+                        <BRAND>, <5>                length("BRAND")  = 5 > 12 => FALSE => No change
+                        <FACTORY>, <6>              length("FACTORY")  = 6 > 12 => FALSE => No change
+         Cleanup Method : Just writes the maxword, length in the final file.
+=========================================================================================================================================
+Output log :
+============
+[edureka@localhost Jar_files]$ hadoop jar MaxLengthWord.jar MaxlengthWordDriver /HandsOn/input/wordcount_*.txt /HandsOn/output/max-length-word-out
+17/05/21 00:31:07 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+17/05/21 00:31:09 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+17/05/21 00:31:10 WARN mapreduce.JobSubmitter: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+17/05/21 00:31:10 INFO input.FileInputFormat: Total input paths to process : 3
+17/05/21 00:31:10 INFO mapreduce.JobSubmitter: number of splits:3
+17/05/21 00:31:10 INFO Configuration.deprecation: user.name is deprecated. Instead, use mapreduce.job.user.name
+17/05/21 00:31:10 INFO Configuration.deprecation: mapred.jar is deprecated. Instead, use mapreduce.job.jar
+17/05/21 00:31:10 INFO Configuration.deprecation: mapred.output.value.class is deprecated. Instead, use mapreduce.job.output.value.class
+17/05/21 00:31:10 INFO Configuration.deprecation: mapreduce.combine.class is deprecated. Instead, use mapreduce.job.combine.class
+17/05/21 00:31:10 INFO Configuration.deprecation: mapreduce.map.class is deprecated. Instead, use mapreduce.job.map.class
+17/05/21 00:31:10 INFO Configuration.deprecation: mapred.job.name is deprecated. Instead, use mapreduce.job.name
+17/05/21 00:31:10 INFO Configuration.deprecation: mapreduce.reduce.class is deprecated. Instead, use mapreduce.job.reduce.class
+17/05/21 00:31:10 INFO Configuration.deprecation: mapred.input.dir is deprecated. Instead, use mapreduce.input.fileinputformat.inputdir
+17/05/21 00:31:10 INFO Configuration.deprecation: mapred.output.dir is deprecated. Instead, use mapreduce.output.fileoutputformat.outputdir
+17/05/21 00:31:10 INFO Configuration.deprecation: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+17/05/21 00:31:10 INFO Configuration.deprecation: mapred.output.key.class is deprecated. Instead, use mapreduce.job.output.key.class
+17/05/21 00:31:10 INFO Configuration.deprecation: mapred.working.dir is deprecated. Instead, use mapreduce.job.working.dir
+17/05/21 00:31:11 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1495300388196_0006
+17/05/21 00:31:11 INFO impl.YarnClientImpl: Submitted application application_1495300388196_0006 to ResourceManager at /0.0.0.0:8032
+17/05/21 00:31:11 INFO mapreduce.Job: The url to track the job: http://localhost:8088/proxy/application_1495300388196_0006/
+17/05/21 00:31:11 INFO mapreduce.Job: Running job: job_1495300388196_0006
+17/05/21 00:31:23 INFO mapreduce.Job: Job job_1495300388196_0006 running in uber mode : false
+17/05/21 00:31:23 INFO mapreduce.Job:  map 0% reduce 0%
+17/05/21 00:31:41 INFO mapreduce.Job:  map 100% reduce 0%
+17/05/21 00:31:50 INFO mapreduce.Job:  map 100% reduce 100%
+17/05/21 00:31:51 INFO mapreduce.Job: Job job_1495300388196_0006 completed successfully
+17/05/21 00:31:51 INFO mapreduce.Job: Counters: 43
+	File System Counters
+		FILE: Number of bytes read=59
+		FILE: Number of bytes written=317791
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=713
+		HDFS: Number of bytes written=16
+		HDFS: Number of read operations=12
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+	Job Counters 
+		Launched map tasks=3
+		Launched reduce tasks=1
+		Data-local map tasks=3
+		Total time spent by all maps in occupied slots (ms)=47631
+		Total time spent by all reduces in occupied slots (ms)=6596
+	Map-Reduce Framework
+		Map input records=17
+		Map output records=64
+		Map output bytes=614
+		Map output materialized bytes=71
+		Input split bytes=351
+		Combine input records=64
+		Combine output records=3
+		Reduce input groups=2
+		Reduce shuffle bytes=71
+		Reduce input records=3
+		Reduce output records=1
+		Spilled Records=6
+		Shuffled Maps =3
+		Failed Shuffles=0
+		Merged Map outputs=3
+		GC time elapsed (ms)=788
+		CPU time spent (ms)=2810
+		Physical memory (bytes) snapshot=527073280
+		Virtual memory (bytes) snapshot=1439621120
+		Total committed heap usage (bytes)=379793408
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=362
+	File Output Format Counters 
+		Bytes Written=16
+[edureka@localhost Jar_files]$ hdfs dfs -cat /HandsOn/output/max-length-word-out/part-r-00000
+17/05/21 00:32:54 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Optometrics.	12
+[edureka@localhost Jar_files]$ 
