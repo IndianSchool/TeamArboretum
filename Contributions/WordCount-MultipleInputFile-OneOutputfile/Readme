@@ -34,7 +34,7 @@ Steps to run  : 1. Place all your input files into one HDFS folder as below.
                                                 jar cvf ./Java_files/WordCount.java ./Jar_files/WordCount.jar
                 3. Then run this program using the below command :
                       hadoop jar <jar file name> <Class name> <input folder path> <output folder path>
-                      hadoop jar ./Jar_files/WordCount.jar WordCount /HandsOn/input /HandsOn/output/wc-multifile-in
+                      hadoop jar ./Jar_files/WordCount.jar WordCountDriver /HandsOn/input /HandsOn/output/wc-multiclass-out
 ===========================================================================================================================================
 Pseudocode : ( taking only wordcount_01.txt for example ) 
 ============
