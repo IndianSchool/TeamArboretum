@@ -1,0 +1,181 @@
+===========================================================================================================================================
+WordCount Program For Multiple Input files
+===========================================================================================================================================
+Jar File Name : WordCount.jar
+Purpose       : To find the word count across multiple files
+Logic Used    : Place all the input files in a single folder and run the WordCount.jar program by passing the input folder path
+Input Format  : We have four input files as listed below
+                  1. wordcount.txt      --  Entire war and peace novel in text format
+                  2. wordcount_01.txt   --  dinesh, sathish, arjun
+                                            vasanth, sathish, arjun
+                                            seenu, raja, ramesh
+                                            eshwar, dinesh
+                  3. wordcount_02.txt   --  Hai, Tom, How are you ?
+                                            Atom is a fine lowest level unit.
+                                            Optometrics.
+                                            He is the regular customer to BRAND FACTORY.
+                  4. wordcount_03.txt   --  Hai, Tom, How are you ?
+                                            Atom is a fine lowest level unit. tom,
+                                            Optometrics.
+                                            He is the regular customer to BRAND FACTORY.
+                                            tom, Tom, tOm, toM, TOm, tOM, ToM, TOM
+Expected Output : One file with all the words sorted by  + no of occurences
+                  1. part-r-00000       --  zois,	1
+                                            zone	1
+                                            zoology	1
+===========================================================================================================================================
+Steps to run  : 1. Place all your input files into one HDFS folder as below.
+                    /HandsOn/input/wordcount.txt
+                    /HandsOn/input/wordcount_01.txt
+                    /HandsOn/input/wordcount_02.txt
+                    /HandsOn/input/wordcount_03.txt
+                2. Create jar file using WordCount.java program
+                     Command Create jar file :  jar cvf <java file path> <jar file path>
+                                                jar cvf ./Java_files/WordCount.java ./Jar_files/WordCount.jar
+                3. Then run this program using the below command :
+                      hadoop jar <jar file name> <Class name> <input folder path> <output folder path>
+                      hadoop jar ./Jar_files/WordCount.jar WordCount /HandsOn/input /HandsOn/output/wc-multifile-in
+===========================================================================================================================================
+Pseudocode : ( taking only wordcount_01.txt for example ) 
+============
+As we have multiple input files, each input file will be considered as separate input split. 
+Here in this case, we have total of 4 input files. So 4 input splits will be created and each will be assigned to separate mappers.
+Hence we have 4 mappers in this case. Refer Output log, you can see number of splits used by mapreduce in this program. 
+
+Input file(wordcount_01.txt) --Each line in a file will be sent to Mapper as key value pair -- <Key = Byte Offest, value = Line>
+
+    Mapper Input :  <1>,<dinesh, sathish, arjun>
+                    <22>,<vasanth, sathish, arjun>
+                    <48>,<seenu, raja, ramesh>
+                    <67>,<eshwar, dinesh>
+ 
+ Mapper splits the entire line into separate words and make it as Key and assign one as value
+     
+     Mapper Output: <dinesh>, <1>
+                    <sathish>, <1>
+                    <arjun>, <1>
+                    <vasanth>, <1>
+                    <sathish>, <1>
+                    <arjun>, <1>
+                    <seenu>, <1>
+                    <raja>, <1>
+                    <ramesh>, <1>
+                    <eshwar>, <1>
+                    <dinesh>, <1>
+ Sort and shuffle combines the above output based on key values. In this case, it groups based on the words. 
+ As we have mappers invoked in this program, we would have 4 sort and shuffle phases one for each mapper. 
+    
+    Sort and Shuffle Output :  <arjun>,<2>
+                               <dinesh>,<2>
+                               <eshwar>,<1>
+                               <raja>,<1>
+                               <ramesh>,<1>
+                               <sathish>,<2>
+                               <seenu>,<1>
+                               <vasnath>,<1>
+ 
+ Then reducer aggregates all the data which coming from different sort and shuffle phases, here we have only one reducer used.
+  
+              Reducer Output : <arjun>,<2>
+                               <dinesh>,<2>
+                               <eshwar>,<1>
+                               <raja>,<1>
+                               <ramesh>,<1>
+                               <sathish>,<2>
+                               <seenu>,<1>
+                               <vasnath>,<1>
+
+===========================================================================================================================================
+Output log :
+============
+[edureka@localhost Hadoop]$ jar cvf ./Java_files/WordCount.java ./Jar_files/WordCount.jar
+added manifest
+adding: Jar_files/WordCount.jar(in = 3351) (out= 3085)(deflated 7%)
+[edureka@localhost Hadoop]$ jar -tvf ./Jar_files/WordCount.jar
+    25 Sat May 20 15:18:40 IST 2017 META-INF/MANIFEST.MF
+  2337 Sun May 14 15:23:14 IST 2017 WordCount$IntSumReducer.class
+  2249 Sun May 14 15:23:14 IST 2017 WordCount$TokenizerMapper.class
+  1702 Sun May 14 15:23:14 IST 2017 WordCount.class
+[edureka@localhost Hadoop]$ hadoop jar ./Jar_files/WordCount.jar WordCount /HandsOn/input /HandsOn/output/wc-multifile-in
+17/05/20 15:39:01 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+17/05/20 15:39:12 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+17/05/20 15:39:18 WARN mapreduce.JobSubmitter: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+17/05/20 15:39:21 INFO input.FileInputFormat: Total input paths to process : 4
+17/05/20 15:39:22 INFO mapreduce.JobSubmitter: number of splits:4
+17/05/20 15:39:22 INFO Configuration.deprecation: user.name is deprecated. Instead, use mapreduce.job.user.name
+17/05/20 15:39:22 INFO Configuration.deprecation: mapred.jar is deprecated. Instead, use mapreduce.job.jar
+17/05/20 15:39:22 INFO Configuration.deprecation: mapred.output.value.class is deprecated. Instead, use mapreduce.job.output.value.class
+17/05/20 15:39:22 INFO Configuration.deprecation: mapreduce.combine.class is deprecated. Instead, use mapreduce.job.combine.class
+17/05/20 15:39:22 INFO Configuration.deprecation: mapreduce.map.class is deprecated. Instead, use mapreduce.job.map.class
+17/05/20 15:39:22 INFO Configuration.deprecation: mapred.job.name is deprecated. Instead, use mapreduce.job.name
+17/05/20 15:39:22 INFO Configuration.deprecation: mapreduce.reduce.class is deprecated. Instead, use mapreduce.job.reduce.class
+17/05/20 15:39:22 INFO Configuration.deprecation: mapred.input.dir is deprecated. Instead, use mapreduce.input.fileinputformat.inputdir
+17/05/20 15:39:22 INFO Configuration.deprecation: mapred.output.dir is deprecated. Instead, use mapreduce.output.fileoutputformat.outputdir
+17/05/20 15:39:22 INFO Configuration.deprecation: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+17/05/20 15:39:22 INFO Configuration.deprecation: mapred.output.key.class is deprecated. Instead, use mapreduce.job.output.key.class
+17/05/20 15:39:22 INFO Configuration.deprecation: mapred.working.dir is deprecated. Instead, use mapreduce.job.working.dir
+17/05/20 15:39:24 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1494745189137_0003
+17/05/20 15:39:30 INFO impl.YarnClientImpl: Submitted application application_1494745189137_0003 to ResourceManager at /0.0.0.0:8032
+17/05/20 15:39:31 INFO mapreduce.Job: The url to track the job: http://localhost:8088/proxy/application_1494745189137_0003/
+17/05/20 15:39:31 INFO mapreduce.Job: Running job: job_1494745189137_0003
+17/05/20 15:40:51 INFO mapreduce.Job: Job job_1494745189137_0003 running in uber mode : false
+17/05/20 15:40:51 INFO mapreduce.Job:  map 0% reduce 0%
+17/05/20 15:42:14 INFO mapreduce.Job:  map 50% reduce 0%
+17/05/20 15:42:16 INFO mapreduce.Job:  map 75% reduce 0%
+17/05/20 15:42:19 INFO mapreduce.Job:  map 92% reduce 0%
+17/05/20 15:42:31 INFO mapreduce.Job:  map 100% reduce 0%
+17/05/20 15:43:07 INFO mapreduce.Job:  map 100% reduce 67%
+17/05/20 15:43:11 INFO mapreduce.Job:  map 100% reduce 100%
+17/05/20 15:43:13 INFO mapreduce.Job: Job job_1494745189137_0003 completed successfully
+17/05/20 15:43:15 INFO mapreduce.Job: Counters: 44
+	File System Counters
+		FILE: Number of bytes read=691005
+		FILE: Number of bytes written=1778843
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=3366659
+		HDFS: Number of bytes written=503949
+		HDFS: Number of read operations=15
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+	Job Counters 
+		Killed map tasks=1
+		Launched map tasks=5
+		Launched reduce tasks=1
+		Data-local map tasks=5
+		Total time spent by all maps in occupied slots (ms)=348198
+		Total time spent by all reduces in occupied slots (ms)=53312
+	Map-Reduce Framework
+		Map input records=98423
+		Map output records=590366
+		Map output bytes=5629248
+		Map output materialized bytes=691023
+		Input split bytes=465
+		Combine input records=590366
+		Combine output records=48164
+		Reduce input groups=48130
+		Reduce shuffle bytes=691023
+		Reduce input records=48164
+		Reduce output records=48130
+		Spilled Records=96328
+		Shuffled Maps =4
+		Failed Shuffles=0
+		Merged Map outputs=4
+		GC time elapsed (ms)=3199
+		CPU time spent (ms)=22480
+		Physical memory (bytes) snapshot=683761664
+		Virtual memory (bytes) snapshot=1799024640
+		Total committed heap usage (bytes)=500973568
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=3366194
+	File Output Format Counters 
+		Bytes Written=503949
+[edureka@localhost Hadoop]$ 
