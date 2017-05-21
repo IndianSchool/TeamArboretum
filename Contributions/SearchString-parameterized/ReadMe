@@ -1,0 +1,193 @@
+=========================================================================================================================================
+Program to Search a string in a file and to return entire line containing the search string
+=========================================================================================================================================
+Program Name  : SearchString.jar
+Purpose       : Return entrire line containing the search String
+Logic Used    : WordCount program is re-used to obtain the search operation.
+                1. Split the line into words in the Mapper
+                2. This is map only job, and reducer is used.
+                3. Note, the search string is passed from the command line using conf.set() method.
+                4. Also, case check is done from command line. case check is optional.
+                5. By default, the program checks for case sensitive words
+                6. To make it case insensitive, pass -i or -I
+                7. Case check and seraching is done using regular expression
+ Input Format : wordcount_03.txt   --   Hai, Tom, How are you ?
+                                        Atom is a fine lowest level unit. tom,
+                                        Optometrics.
+                                        He is the regular customer to BRAND FACTORY.
+                                        tom, Tom, tOm, toM, TOm, tOM, ToM, TOM
+ Expected Output :  part-m-00000
+                    1. If the search string is "tom" ( case insensitive ) then the below three lines will be displayed
+                                    Hai, Tom, How are you ?
+                                    Atom is a fine lowest level unit. tom,
+                                    tom, Tom, tOm, toM, TOm, tOM, ToM, TOM
+                    2. If the search string is "tom" ( case sensitive ) then the below two lines will be displayed
+                                    Atom is a fine lowest level unit. tom,
+                                    tom, Tom, tOm, toM, TOm, tOM, ToM, TOM
+=========================================================================================================================================
+Steps to run :  1. Place all your input files into one HDFS folder as below.
+                      /HandsOn/input/wordcount_03.txt
+                2. Create jar file using WordCount.java program
+                     Command Create jar file :  jar cvf <java file path> <jar file path>
+                                                jar cvf ./Java_files/SearchStringDriver.java ./Jar_files/SearchString.jar
+                3. Then run this program using the below command :
+                      hadoop jar <jar file name> <Class name> <input folder path> <output folder path>
+                      hadoop jar SearchString.jar SearchStringDriver /HandsOn/input/wordcount_*.txt /HandsOn/output/search-string-pm tom -i
+                      hadoop jar SearchString.jar SearchStringDriver /HandsOn/input/wordcount_03.txt /HandsOn/output/search-string-pm-casecheck TOM -c
+=========================================================================================================================================
+Pseudocode :
+============
+Input file(wordcount.txt) --Each line in a file will be sent to Mapper as key value pair -- <Key = Byte Offest, value = Line>
+
+    Mapper Input :  	  <BOF>,<Hai, Tom, How are you ?>
+<LongWritable>,<Text>   <BOF>,<Atom is a fine lowest level unit. tom,>
+                    	  <BOF>,<Optometrics.>
+                    	  <BOF>,<He is the regular customer to BRAND FACTORY.>
+                        <BOF>,<tom, Tom, tOm, toM, TOm, tOM, ToM, TOM>
+ 
+ Mapper splits the entire line into separate words and make it as Key and assign length as value
+     
+     Mapper Output: 	<Hai, Tom, How are you ?>, <null>
+                      <Atom is a fine lowest level unit. tom,>, <null>
+                      <tom, Tom, tOm, toM, TOm, tOM, ToM, TOM>, <null>
+=========================================================================================================================================
+Output Log : - Case Insensitive Check
+=============
+[edureka@localhost Jar_files]$ jar tvf SearchString.jar 
+    25 Sun May 21 10:53:24 IST 2017 META-INF/MANIFEST.MF
+  3195 Sun May 21 10:45:20 IST 2017 searchStringpkg/SearchStringMapper.class
+  1773 Sun May 21 10:50:58 IST 2017 SearchStringDriver.class
+[edureka@localhost Jar_files]$ hadoop jar SearchString.jar SearchStringDriver /HandsOn/input/wordcount_03.txt /HandsOn/output/search-string-pm tom -i
+17/05/21 11:41:50 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+17/05/21 11:41:52 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+17/05/21 11:41:53 WARN mapreduce.JobSubmitter: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+17/05/21 11:41:53 INFO input.FileInputFormat: Total input paths to process : 1
+17/05/21 11:41:53 INFO mapreduce.JobSubmitter: number of splits:1
+17/05/21 11:41:53 INFO Configuration.deprecation: user.name is deprecated. Instead, use mapreduce.job.user.name
+17/05/21 11:41:53 INFO Configuration.deprecation: mapred.jar is deprecated. Instead, use mapreduce.job.jar
+17/05/21 11:41:53 INFO Configuration.deprecation: mapred.reduce.tasks is deprecated. Instead, use mapreduce.job.reduces
+17/05/21 11:41:53 INFO Configuration.deprecation: mapred.output.value.class is deprecated. Instead, use mapreduce.job.output.value.class
+17/05/21 11:41:53 INFO Configuration.deprecation: mapreduce.map.class is deprecated. Instead, use mapreduce.job.map.class
+17/05/21 11:41:53 INFO Configuration.deprecation: mapred.job.name is deprecated. Instead, use mapreduce.job.name
+17/05/21 11:41:53 INFO Configuration.deprecation: mapred.input.dir is deprecated. Instead, use mapreduce.input.fileinputformat.inputdir
+17/05/21 11:41:53 INFO Configuration.deprecation: mapred.output.dir is deprecated. Instead, use mapreduce.output.fileoutputformat.outputdir
+17/05/21 11:41:53 INFO Configuration.deprecation: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+17/05/21 11:41:53 INFO Configuration.deprecation: mapred.output.key.class is deprecated. Instead, use mapreduce.job.output.key.class
+17/05/21 11:41:53 INFO Configuration.deprecation: mapred.working.dir is deprecated. Instead, use mapreduce.job.working.dir
+17/05/21 11:41:54 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1495300388196_0007
+17/05/21 11:41:54 INFO impl.YarnClientImpl: Submitted application application_1495300388196_0007 to ResourceManager at /0.0.0.0:8032
+17/05/21 11:41:54 INFO mapreduce.Job: The url to track the job: http://localhost:8088/proxy/application_1495300388196_0007/
+17/05/21 11:41:54 INFO mapreduce.Job: Running job: job_1495300388196_0007
+17/05/21 11:42:05 INFO mapreduce.Job: Job job_1495300388196_0007 running in uber mode : false
+17/05/21 11:42:05 INFO mapreduce.Job:  map 0% reduce 0%
+17/05/21 11:42:13 INFO mapreduce.Job:  map 100% reduce 0%
+17/05/21 11:42:14 INFO mapreduce.Job: Job job_1495300388196_0007 completed successfully
+17/05/21 11:42:14 INFO mapreduce.Job: Counters: 27
+	File System Counters
+		FILE: Number of bytes read=0
+		FILE: Number of bytes written=79109
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=279
+		HDFS: Number of bytes written=82
+		HDFS: Number of read operations=5
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+	Job Counters 
+		Launched map tasks=1
+		Data-local map tasks=1
+		Total time spent by all maps in occupied slots (ms)=6550
+		Total time spent by all reduces in occupied slots (ms)=0
+	Map-Reduce Framework
+		Map input records=7
+		Map output records=2
+		Input split bytes=117
+		Spilled Records=0
+		Failed Shuffles=0
+		Merged Map outputs=0
+		GC time elapsed (ms)=87
+		CPU time spent (ms)=390
+		Physical memory (bytes) snapshot=54263808
+		Virtual memory (bytes) snapshot=360067072
+		Total committed heap usage (bytes)=16252928
+	File Input Format Counters 
+		Bytes Read=162
+	File Output Format Counters 
+		Bytes Written=82
+[edureka@localhost Jar_files]$ 
+[edureka@localhost Jar_files]$ hdfs dfs -cat /HandsOn/output/search-string-pm/part-m-00000
+17/05/21 11:45:08 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Atom is a fine lowest level unit. tom,	1
+tom, Tom, tOm, toM, TOm, tOM, ToM, TOM	1
+[edureka@localhost Jar_files]$ 
+=========================================================================================================================================
+Output - Case Sensitive - Check
+=========================================================================================================================================
+Way to run with case Case check ( Pass -c or even you may omit , by default it will be case sensitive check )
+==> hadoop jar SearchString.jar SearchStringDriver /HandsOn/input/wordcount_03.txt /HandsOn/output/search-string-pm-casecheck TOM
+
+[edureka@localhost Jar_files]$ hadoop jar SearchString.jar SearchStringDriver /HandsOn/input/wordcount_03.txt /HandsOn/output/search-string-pm-casecheck TOM -c
+17/05/21 11:50:16 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+17/05/21 11:50:18 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+17/05/21 11:50:19 WARN mapreduce.JobSubmitter: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+17/05/21 11:50:19 INFO input.FileInputFormat: Total input paths to process : 1
+17/05/21 11:50:19 INFO mapreduce.JobSubmitter: number of splits:1
+17/05/21 11:50:19 INFO Configuration.deprecation: user.name is deprecated. Instead, use mapreduce.job.user.name
+17/05/21 11:50:19 INFO Configuration.deprecation: mapred.jar is deprecated. Instead, use mapreduce.job.jar
+17/05/21 11:50:19 INFO Configuration.deprecation: mapred.reduce.tasks is deprecated. Instead, use mapreduce.job.reduces
+17/05/21 11:50:19 INFO Configuration.deprecation: mapred.output.value.class is deprecated. Instead, use mapreduce.job.output.value.class
+17/05/21 11:50:19 INFO Configuration.deprecation: mapreduce.map.class is deprecated. Instead, use mapreduce.job.map.class
+17/05/21 11:50:19 INFO Configuration.deprecation: mapred.job.name is deprecated. Instead, use mapreduce.job.name
+17/05/21 11:50:19 INFO Configuration.deprecation: mapred.input.dir is deprecated. Instead, use mapreduce.input.fileinputformat.inputdir
+17/05/21 11:50:19 INFO Configuration.deprecation: mapred.output.dir is deprecated. Instead, use mapreduce.output.fileoutputformat.outputdir
+17/05/21 11:50:19 INFO Configuration.deprecation: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+17/05/21 11:50:19 INFO Configuration.deprecation: mapred.output.key.class is deprecated. Instead, use mapreduce.job.output.key.class
+17/05/21 11:50:19 INFO Configuration.deprecation: mapred.working.dir is deprecated. Instead, use mapreduce.job.working.dir
+17/05/21 11:50:20 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1495300388196_0008
+17/05/21 11:50:20 INFO impl.YarnClientImpl: Submitted application application_1495300388196_0008 to ResourceManager at /0.0.0.0:8032
+17/05/21 11:50:20 INFO mapreduce.Job: The url to track the job: http://localhost:8088/proxy/application_1495300388196_0008/
+17/05/21 11:50:20 INFO mapreduce.Job: Running job: job_1495300388196_0008
+17/05/21 11:50:32 INFO mapreduce.Job: Job job_1495300388196_0008 running in uber mode : false
+17/05/21 11:50:32 INFO mapreduce.Job:  map 0% reduce 0%
+17/05/21 11:50:39 INFO mapreduce.Job:  map 100% reduce 0%
+17/05/21 11:50:40 INFO mapreduce.Job: Job job_1495300388196_0008 completed successfully
+17/05/21 11:50:40 INFO mapreduce.Job: Counters: 27
+	File System Counters
+		FILE: Number of bytes read=0
+		FILE: Number of bytes written=79119
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=279
+		HDFS: Number of bytes written=41
+		HDFS: Number of read operations=5
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+	Job Counters 
+		Launched map tasks=1
+		Data-local map tasks=1
+		Total time spent by all maps in occupied slots (ms)=5781
+		Total time spent by all reduces in occupied slots (ms)=0
+	Map-Reduce Framework
+		Map input records=7
+		Map output records=1
+		Input split bytes=117
+		Spilled Records=0
+		Failed Shuffles=0
+		Merged Map outputs=0
+		GC time elapsed (ms)=40
+		CPU time spent (ms)=370
+		Physical memory (bytes) snapshot=54366208
+		Virtual memory (bytes) snapshot=360067072
+		Total committed heap usage (bytes)=16252928
+	File Input Format Counters 
+		Bytes Read=162
+	File Output Format Counters 
+		Bytes Written=41
+[edureka@localhost Jar_files]$ hdfs dfs -cat /HandsOn/output/search-string-pm-casecheck/part-m-00000
+17/05/21 11:51:26 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+tom, Tom, tOm, toM, TOm, tOM, ToM, TOM	1
+[edureka@localhost Jar_files]$ 
+
+
