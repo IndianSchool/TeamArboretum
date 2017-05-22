@@ -1,0 +1,144 @@
+==========================================================================================================================================
+Program to demonstrate CombineFileInputFormat
+==========================================================================================================================================
+Program Name  : CombineFileInput.jar
+Purpose       : Normally HDFS block size would be 64 MB, but your input files will be less than the block size mostly.
+                mapreduce treats the file size as lower limit while creating input splits
+                So if the input file is less than block size, each file will be considered as single input split
+                Each single input split will be processed by map task.
+                So as many smaller input files are there, so many map task will be created. This is not so efficient.
+                Also this creates I/O overhead while scaling up to large number of small sized files. 
+                Smaller files leads to namenode memory management problem as 150 bytes were needed for each file metadata store.
+                In order to overcome this CombineFileInputSplit method will be used.
+                This will combine multiple small sized files into one single split/map task.
+                
+                Main parts in InputFormat in MapReduce -- InputSplit   -- partitioning the input data to map task
+                                                       -- RecordReader -- How the data should br read from InputSplit
+                
+Logic Used    : 1. First Create a Custom RecordReader<FileLineWritable, Text>
+                      -- RecordReader -- get start and end position of the input split
+                                      -- get the byteoffset position to generate key-value pair [ Key = <BOF>, Value =<Line>]
+                                      -- get the current key and current value
+                                      -- get the current progress
+                                      -- opens and close the input file system
+                     
+                     -- Initialize the Custom record reader with the start, end position of the split, filename, etc
+                2. Create the InputFormat and set the split size to 64 MB
+                     -- Then create the Custom RecordReader to specify how the record is going to read
+                3. Then Specify the InputFormat, Mapper details in the driver class
+Input Format  : Three small files of same set of data lesser than the block size 64 MB
+                
+ <emp_01.txt>   10001   1953-09-02      Georgi  Facello M       1986-06-26      d005
+                10002   1964-06-02      Bezalel Simmel  F       1985-11-21      d007
+                10003   1959-12-03      Parto   Bamford M       1986-08-28      d004l
+                
+ <emp_02.txt>   10004   1953-09-02      Georgi  Facello M       1986-06-26      d005
+                10005   1964-06-02      Bezalel Simmel  F       1985-11-21      d007
+                10006   1959-12-03      Parto   Bamford M       1986-08-28      d004l
+                
+ <emp_03.txt>   10007   1953-09-02      Georgi  Facello M       1986-06-26      d005
+                10008   1964-06-02      Bezalel Simmel  F       1985-11-21      d007
+                10009   1959-12-03      Parto   Bamford M       1986-08-28      d004l 
+                
+Expected Output : Only one input split will be used.
+
+<part-r-00000>  10001   1
+                10002   1
+                10003   1
+                10004   1
+                10005   1
+                10006   1
+                10007   1
+                10008   1
+                10009   1
+                1953-09-02    3
+                1964-06-02    3
+                1959-12-03    3
+                Georgi    3
+
+=========================================================================================================================================
+How To Run:
+        hadoop jar CombineFileInputFormat.jar CombineFileInputDriver /HandsOn/input/emp_*.txt /HandsOn/output/combine-out-02
+==========================================================================================================================================
+Output Log:
+====================
+[edureka@localhost Jar_files]$ hadoop jar CombineFileInputFormat.jar CombineFileInputDriver /HandsOn/input/emp_*.txt /HandsOn/output/combine-out-02
+17/05/23 02:09:36 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+17/05/23 02:09:38 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+17/05/23 02:09:39 INFO input.FileInputFormat: Total input paths to process : 3
+17/05/23 02:09:40 INFO input.CombineFileInputFormat: DEBUG: Terminated node allocation with : CompletedNodes: 1, size left: 624
+17/05/23 02:09:40 INFO mapreduce.JobSubmitter: number of splits:1
+17/05/23 02:09:40 INFO Configuration.deprecation: user.name is deprecated. Instead, use mapreduce.job.user.name
+17/05/23 02:09:40 INFO Configuration.deprecation: mapred.jar is deprecated. Instead, use mapreduce.job.jar
+17/05/23 02:09:40 INFO Configuration.deprecation: mapred.mapoutput.value.class is deprecated. Instead, use mapreduce.map.output.value.class
+17/05/23 02:09:40 INFO Configuration.deprecation: mapreduce.map.class is deprecated. Instead, use mapreduce.job.map.class
+17/05/23 02:09:40 INFO Configuration.deprecation: mapred.job.name is deprecated. Instead, use mapreduce.job.name
+17/05/23 02:09:40 INFO Configuration.deprecation: mapreduce.reduce.class is deprecated. Instead, use mapreduce.job.reduce.class
+17/05/23 02:09:40 INFO Configuration.deprecation: mapreduce.inputformat.class is deprecated. Instead, use mapreduce.job.inputformat.class
+17/05/23 02:09:40 INFO Configuration.deprecation: mapred.input.dir is deprecated. Instead, use mapreduce.input.fileinputformat.inputdir
+17/05/23 02:09:40 INFO Configuration.deprecation: mapred.output.dir is deprecated. Instead, use mapreduce.output.fileoutputformat.outputdir
+17/05/23 02:09:40 INFO Configuration.deprecation: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+17/05/23 02:09:40 INFO Configuration.deprecation: mapred.mapoutput.key.class is deprecated. Instead, use mapreduce.map.output.key.class
+17/05/23 02:09:40 INFO Configuration.deprecation: mapred.working.dir is deprecated. Instead, use mapreduce.job.working.dir
+17/05/23 02:09:40 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1495463801448_0003
+17/05/23 02:09:41 INFO impl.YarnClientImpl: Submitted application application_1495463801448_0003 to ResourceManager at /0.0.0.0:8032
+17/05/23 02:09:41 INFO mapreduce.Job: The url to track the job: http://localhost:8088/proxy/application_1495463801448_0003/
+17/05/23 02:09:41 INFO mapreduce.Job: Running job: job_1495463801448_0003
+17/05/23 02:09:54 INFO mapreduce.Job: Job job_1495463801448_0003 running in uber mode : false
+17/05/23 02:09:54 INFO mapreduce.Job:  map 0% reduce 0%
+17/05/23 02:10:05 INFO mapreduce.Job:  map 100% reduce 0%
+17/05/23 02:10:16 INFO mapreduce.Job:  map 100% reduce 100%
+17/05/23 02:10:17 INFO mapreduce.Job: Job job_1495463801448_0003 completed successfully
+17/05/23 02:10:18 INFO mapreduce.Job: Counters: 43
+	File System Counters
+		FILE: Number of bytes read=834
+		FILE: Number of bytes written=160717
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=888
+		HDFS: Number of bytes written=236
+		HDFS: Number of read operations=8
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+	Job Counters 
+		Launched map tasks=1
+		Launched reduce tasks=1
+		Other local map tasks=1
+		Total time spent by all maps in occupied slots (ms)=9084
+		Total time spent by all reduces in occupied slots (ms)=8583
+	Map-Reduce Framework
+		Map input records=9
+		Map output records=63
+		Map output bytes=702
+		Map output materialized bytes=834
+		Input split bytes=264
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=26
+		Reduce shuffle bytes=834
+		Reduce input records=63
+		Reduce output records=26
+		Spilled Records=126
+		Shuffled Maps =1
+		Failed Shuffles=0
+		Merged Map outputs=1
+		GC time elapsed (ms)=244
+		CPU time spent (ms)=1780
+		Physical memory (bytes) snapshot=212238336
+		Virtual memory (bytes) snapshot=721477632
+		Total committed heap usage (bytes)=137433088
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=0
+	File Output Format Counters 
+		Bytes Written=236
+[edureka@localhost Jar_files]$ 
+
+==============
