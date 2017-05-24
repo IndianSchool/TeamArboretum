@@ -1,0 +1,145 @@
+=========================================================================================================================================
+Program to Search a string in a file and to return entire line containing the search string
+=========================================================================================================================================
+Program Name : WordCount.jar
+Purpose : To count the number of distinct words in a input
+Logic Used : WordCount program is used to obtain the number of words in a file or set of files.
+1. Split the line into words in the Mapper
+2. This is map only job, and reducer is used.
+3. Also, case check is done from command line. case check is optional.
+
+Input Format : wordcount.txt 
+Hi Hello How are you
+Good morning
+Have a nice day
+How was your day
+Enjoy the day
+
+Expected Output : part-m-00000
+Enjoy	1
+Good	1
+Have	1
+Hello	1
+Hi	1
+How	2
+a	1
+are	1
+day	3
+morning	1
+nice	1
+the	1
+was	1
+you	1
+your	1
+
+
+=========================================================================================================================================
+Steps to run : 1. Place all your input files into one HDFS folder as below.
+/HandsOn/input/wordcount_03.txt
+2. Create jar file using WordCount.java program
+Command Create jar file : jar cvf <java file path> <jar file path>
+jar cvf ./Java_files/SearchStringDriver.java ./Jar_files/SearchString.jar
+3. Then run this program using the below command :
+hadoop jar <jar file name> <Class name> <input folder path> <output folder path>
+hadoop jar WordCount.jar WordCount /HandsOn/input/wordcount.txt /HandsOn/output/WordCount
+=========================================================================================================================================
+Pseudocode :
+=========================================================================================================================================
+
+
+=========================================================================================================================================
+Output Log : 
+=========================================================================================================================================
+2017-05-24 08:26:37,708 WARN  [main] util.NativeCodeLoader (NativeCodeLoader.java:<clinit>(62)) - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2017-05-24 08:26:37,827 INFO  [main] jvm.JvmMetrics (JvmMetrics.java:init(76)) - Initializing JVM Metrics with processName=JobTracker, sessionId=
+2017-05-24 08:26:38,065 WARN  [main] mapreduce.JobSubmitter (JobSubmitter.java:copyAndConfigureFiles(149)) - Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+2017-05-24 08:26:38,072 WARN  [main] mapreduce.JobSubmitter (JobSubmitter.java:copyAndConfigureFiles(258)) - No job jar file set.  User classes may not be found. See Job or Job#setJar(String).
+2017-05-24 08:26:38,088 INFO  [main] input.FileInputFormat (FileInputFormat.java:listStatus(287)) - Total input paths to process : 1
+2017-05-24 08:26:38,141 INFO  [main] mapreduce.JobSubmitter (JobSubmitter.java:submitJobInternal(394)) - number of splits:1
+2017-05-24 08:26:38,153 INFO  [main] Configuration.deprecation (Configuration.java:warnOnceIfDeprecated(840)) - mapreduce.combine.class is deprecated. Instead, use mapreduce.job.combine.class
+2017-05-24 08:26:38,153 INFO  [main] Configuration.deprecation (Configuration.java:warnOnceIfDeprecated(840)) - user.name is deprecated. Instead, use mapreduce.job.user.name
+2017-05-24 08:26:38,154 INFO  [main] Configuration.deprecation (Configuration.java:warnOnceIfDeprecated(840)) - mapreduce.map.class is deprecated. Instead, use mapreduce.job.map.class
+2017-05-24 08:26:38,156 INFO  [main] Configuration.deprecation (Configuration.java:warnOnceIfDeprecated(840)) - mapred.job.name is deprecated. Instead, use mapreduce.job.name
+2017-05-24 08:26:38,156 INFO  [main] Configuration.deprecation (Configuration.java:warnOnceIfDeprecated(840)) - mapreduce.reduce.class is deprecated. Instead, use mapreduce.job.reduce.class
+2017-05-24 08:26:38,157 INFO  [main] Configuration.deprecation (Configuration.java:warnOnceIfDeprecated(840)) - mapred.input.dir is deprecated. Instead, use mapreduce.input.fileinputformat.inputdir
+2017-05-24 08:26:38,157 INFO  [main] Configuration.deprecation (Configuration.java:warnOnceIfDeprecated(840)) - mapred.output.dir is deprecated. Instead, use mapreduce.output.fileoutputformat.outputdir
+2017-05-24 08:26:38,158 INFO  [main] Configuration.deprecation (Configuration.java:warnOnceIfDeprecated(840)) - mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+2017-05-24 08:26:38,159 INFO  [main] Configuration.deprecation (Configuration.java:warnOnceIfDeprecated(840)) - mapred.output.value.class is deprecated. Instead, use mapreduce.job.output.value.class
+2017-05-24 08:26:38,159 INFO  [main] Configuration.deprecation (Configuration.java:warnOnceIfDeprecated(840)) - mapred.output.key.class is deprecated. Instead, use mapreduce.job.output.key.class
+2017-05-24 08:26:38,162 INFO  [main] Configuration.deprecation (Configuration.java:warnOnceIfDeprecated(840)) - mapred.working.dir is deprecated. Instead, use mapreduce.job.working.dir
+2017-05-24 08:26:38,334 INFO  [main] mapreduce.JobSubmitter (JobSubmitter.java:printTokens(477)) - Submitting tokens for job: job_local461979488_0001
+2017-05-24 08:26:38,394 WARN  [main] conf.Configuration (Configuration.java:loadProperty(2172)) - file:/tmp/hadoop-edureka/mapred/staging/edureka461979488/.staging/job_local461979488_0001/job.xml:an attempt to override final parameter: mapreduce.job.end-notification.max.retry.interval;  Ignoring.
+2017-05-24 08:26:38,395 WARN  [main] conf.Configuration (Configuration.java:loadProperty(2172)) - file:/tmp/hadoop-edureka/mapred/staging/edureka461979488/.staging/job_local461979488_0001/job.xml:an attempt to override final parameter: mapreduce.job.end-notification.max.attempts;  Ignoring.
+2017-05-24 08:26:38,503 WARN  [main] conf.Configuration (Configuration.java:loadProperty(2172)) - file:/tmp/hadoop-edureka/mapred/local/localRunner/edureka/job_local461979488_0001/job_local461979488_0001.xml:an attempt to override final parameter: mapreduce.job.end-notification.max.retry.interval;  Ignoring.
+2017-05-24 08:26:38,508 WARN  [main] conf.Configuration (Configuration.java:loadProperty(2172)) - file:/tmp/hadoop-edureka/mapred/local/localRunner/edureka/job_local461979488_0001/job_local461979488_0001.xml:an attempt to override final parameter: mapreduce.job.end-notification.max.attempts;  Ignoring.
+2017-05-24 08:26:38,528 INFO  [main] mapreduce.Job (Job.java:submit(1272)) - The url to track the job: http://localhost:8080/
+2017-05-24 08:26:38,529 INFO  [main] mapreduce.Job (Job.java:monitorAndPrintJob(1317)) - Running job: job_local461979488_0001
+2017-05-24 08:26:38,537 INFO  [Thread-11] mapred.LocalJobRunner (LocalJobRunner.java:createOutputCommitter(323)) - OutputCommitter set in config null
+2017-05-24 08:26:38,547 INFO  [Thread-11] mapred.LocalJobRunner (LocalJobRunner.java:createOutputCommitter(341)) - OutputCommitter is org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter
+2017-05-24 08:26:38,603 INFO  [Thread-11] mapred.LocalJobRunner (LocalJobRunner.java:run(389)) - Waiting for map tasks
+2017-05-24 08:26:38,605 INFO  [LocalJobRunner Map Task Executor #0] mapred.LocalJobRunner (LocalJobRunner.java:run(216)) - Starting task: attempt_local461979488_0001_m_000000_0
+2017-05-24 08:26:38,643 INFO  [LocalJobRunner Map Task Executor #0] mapred.Task (Task.java:initialize(581)) -  Using ResourceCalculatorProcessTree : [ ]
+2017-05-24 08:26:38,647 INFO  [LocalJobRunner Map Task Executor #0] mapred.MapTask (MapTask.java:runNewMapper(732)) - Processing split: file:/home/edureka/wordcount.txt:0+81
+2017-05-24 08:26:38,676 INFO  [LocalJobRunner Map Task Executor #0] mapred.MapTask (MapTask.java:createSortingCollector(387)) - Map output collector class = org.apache.hadoop.mapred.MapTask$MapOutputBuffer
+2017-05-24 08:26:38,883 INFO  [LocalJobRunner Map Task Executor #0] mapred.MapTask (MapTask.java:setEquator(1183)) - (EQUATOR) 0 kvi 26214396(104857584)
+2017-05-24 08:26:38,884 INFO  [LocalJobRunner Map Task Executor #0] mapred.MapTask (MapTask.java:init(975)) - mapreduce.task.io.sort.mb: 100
+2017-05-24 08:26:38,884 INFO  [LocalJobRunner Map Task Executor #0] mapred.MapTask (MapTask.java:init(976)) - soft limit at 83886080
+2017-05-24 08:26:38,884 INFO  [LocalJobRunner Map Task Executor #0] mapred.MapTask (MapTask.java:init(977)) - bufstart = 0; bufvoid = 104857600
+2017-05-24 08:26:38,884 INFO  [LocalJobRunner Map Task Executor #0] mapred.MapTask (MapTask.java:init(978)) - kvstart = 26214396; length = 6553600
+2017-05-24 08:26:38,898 INFO  [LocalJobRunner Map Task Executor #0] mapred.LocalJobRunner (LocalJobRunner.java:statusUpdate(513)) - 
+2017-05-24 08:26:38,898 INFO  [LocalJobRunner Map Task Executor #0] mapred.MapTask (MapTask.java:flush(1440)) - Starting flush of map output
+2017-05-24 08:26:38,899 INFO  [LocalJobRunner Map Task Executor #0] mapred.MapTask (MapTask.java:flush(1459)) - Spilling map output
+2017-05-24 08:26:38,899 INFO  [LocalJobRunner Map Task Executor #0] mapred.MapTask (MapTask.java:flush(1460)) - bufstart = 0; bufend = 153; bufvoid = 104857600
+2017-05-24 08:26:38,899 INFO  [LocalJobRunner Map Task Executor #0] mapred.MapTask (MapTask.java:flush(1462)) - kvstart = 26214396(104857584); kvend = 26214328(104857312); length = 69/6553600
+2017-05-24 08:26:38,921 INFO  [LocalJobRunner Map Task Executor #0] mapred.MapTask (MapTask.java:sortAndSpill(1648)) - Finished spill 0
+2017-05-24 08:26:38,927 INFO  [LocalJobRunner Map Task Executor #0] mapred.Task (Task.java:done(995)) - Task:attempt_local461979488_0001_m_000000_0 is done. And is in the process of committing
+2017-05-24 08:26:38,940 INFO  [LocalJobRunner Map Task Executor #0] mapred.LocalJobRunner (LocalJobRunner.java:statusUpdate(513)) - map
+2017-05-24 08:26:38,940 INFO  [LocalJobRunner Map Task Executor #0] mapred.Task (Task.java:sendDone(1115)) - Task 'attempt_local461979488_0001_m_000000_0' done.
+2017-05-24 08:26:38,941 INFO  [LocalJobRunner Map Task Executor #0] mapred.LocalJobRunner (LocalJobRunner.java:run(241)) - Finishing task: attempt_local461979488_0001_m_000000_0
+2017-05-24 08:26:38,941 INFO  [Thread-11] mapred.LocalJobRunner (LocalJobRunner.java:run(397)) - Map task executor complete.
+2017-05-24 08:26:38,960 INFO  [Thread-11] mapred.Task (Task.java:initialize(581)) -  Using ResourceCalculatorProcessTree : [ ]
+2017-05-24 08:26:38,965 INFO  [Thread-11] mapred.Merger (Merger.java:merge(568)) - Merging 1 sorted segments
+2017-05-24 08:26:38,973 INFO  [Thread-11] mapred.Merger (Merger.java:merge(667)) - Down to the last merge-pass, with 1 segments left of total size: 153 bytes
+2017-05-24 08:26:38,974 INFO  [Thread-11] mapred.LocalJobRunner (LocalJobRunner.java:statusUpdate(513)) - 
+2017-05-24 08:26:38,980 INFO  [Thread-11] Configuration.deprecation (Configuration.java:warnOnceIfDeprecated(840)) - mapred.skip.on is deprecated. Instead, use mapreduce.job.skiprecords
+2017-05-24 08:26:38,981 INFO  [Thread-11] mapred.Task (Task.java:done(995)) - Task:attempt_local461979488_0001_r_000000_0 is done. And is in the process of committing
+2017-05-24 08:26:38,983 INFO  [Thread-11] mapred.LocalJobRunner (LocalJobRunner.java:statusUpdate(513)) - 
+2017-05-24 08:26:38,983 INFO  [Thread-11] mapred.Task (Task.java:commit(1156)) - Task attempt_local461979488_0001_r_000000_0 is allowed to commit now
+2017-05-24 08:26:38,985 INFO  [Thread-11] output.FileOutputCommitter (FileOutputCommitter.java:commitTask(439)) - Saved output of task 'attempt_local461979488_0001_r_000000_0' to file:/home/edureka/Hadoop/Output/WordCount2/_temporary/0/task_local461979488_0001_r_000000
+2017-05-24 08:26:38,987 INFO  [Thread-11] mapred.LocalJobRunner (LocalJobRunner.java:statusUpdate(513)) - reduce > reduce
+2017-05-24 08:26:38,987 INFO  [Thread-11] mapred.Task (Task.java:sendDone(1115)) - Task 'attempt_local461979488_0001_r_000000_0' done.
+2017-05-24 08:26:39,537 INFO  [main] mapreduce.Job (Job.java:monitorAndPrintJob(1338)) - Job job_local461979488_0001 running in uber mode : false
+2017-05-24 08:26:39,538 INFO  [main] mapreduce.Job (Job.java:monitorAndPrintJob(1345)) -  map 100% reduce 100%
+2017-05-24 08:26:39,541 INFO  [main] mapreduce.Job (Job.java:monitorAndPrintJob(1356)) - Job job_local461979488_0001 completed successfully
+2017-05-24 08:26:39,553 INFO  [main] mapreduce.Job (Job.java:monitorAndPrintJob(1363)) - Counters: 27
+	File System Counters
+		FILE: Number of bytes read=629
+		FILE: Number of bytes written=285621
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+	Map-Reduce Framework
+		Map input records=5
+		Map output records=18
+		Map output bytes=153
+		Map output materialized bytes=165
+		Input split bytes=97
+		Combine input records=18
+		Combine output records=15
+		Reduce input groups=15
+		Reduce shuffle bytes=0
+		Reduce input records=15
+		Reduce output records=15
+		Spilled Records=30
+		Shuffled Maps =0
+		Failed Shuffles=0
+		Merged Map outputs=0
+		GC time elapsed (ms)=41
+		CPU time spent (ms)=0
+		Physical memory (bytes) snapshot=0
+		Virtual memory (bytes) snapshot=0
+		Total committed heap usage (bytes)=242360320
+	File Input Format Counters 
+		Bytes Read=81
+	File Output Format Counters 
+		Bytes Written=111
