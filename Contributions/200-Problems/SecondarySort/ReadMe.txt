@@ -30,6 +30,10 @@ Expected output :
                       d001    Zykh    Sudhanshu       205927
                       d001    Zykh    Nidapan 452738
 ==========================================================================================================================================
+How to run :
+	hadoop jar <jar file name> <class name> <source> <target>
+	hadoop jar sort.jar SecondarySortBasicDriver /HandsOn/input/emp_src.txt /HandsOn/output/emp-sort-out
+==========================================================================================================================================
 Pseudo Code :
 ================
 1. Mapper Input ==> <BOF>, <10003 1959-12-03  Parto     Bamford   M       1986-08-28    d004>
